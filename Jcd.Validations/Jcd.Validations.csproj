@@ -11,6 +11,9 @@
         <RepositoryType>github</RepositoryType>
         <PackageTags>parameter validation</PackageTags>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>1.0.1</PackageVersion>
+        <AssemblyVersion>1.0.1</AssemblyVersion>
+        <FileVersion>1.0.1</FileVersion>
     </PropertyGroup>
 
 </Project>

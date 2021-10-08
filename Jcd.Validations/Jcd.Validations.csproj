@@ -10,6 +10,7 @@
         <RepositoryUrl>https://github.com/jason-c-daniels/Jcd.Validations</RepositoryUrl>
         <RepositoryType>github</RepositoryType>
         <PackageTags>parameter validation</PackageTags>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
 </Project>

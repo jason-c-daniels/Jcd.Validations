@@ -556,7 +556,7 @@ namespace Jcd.Validations
       public static void InRange<T>(T value, T min, T max, string name = null, string message = null)
          where T : IComparable<T>
       {
-         if (typeof(T).IsClass)
+         if (typeof(T).IsByRef)
          {
             IsNotNull(value as object, name, message);
 
@@ -592,7 +592,7 @@ namespace Jcd.Validations
       public static void IsGreaterThan<T>(T value, T comparison, string name = null, string message = null)
          where T : IComparable<T>
       {
-         if (typeof(T).IsClass)
+         if (typeof(T).IsByRef)
          {
             IsNotNull(value as object, name, message);
 
@@ -627,7 +627,7 @@ namespace Jcd.Validations
       public static void IsGreaterThanOrEqual<T>(T value, T comparison, string name = null, string message = null)
          where T : IComparable<T>
       {
-         if (typeof(T).IsClass)
+         if (typeof(T).IsByRef)
          {
             IsNotNull(value as object, name, message);
 
@@ -659,7 +659,7 @@ namespace Jcd.Validations
       public static void IsLessThan<T>(T value, T comparison, string name = null, string message = null)
          where T : IComparable<T>
       {
-         if (typeof(T).IsClass)
+         if (typeof(T).IsByRef)
          {
             IsNotNull(value as object, name, message);
 
@@ -694,7 +694,7 @@ namespace Jcd.Validations
       public static void IsLessThanOrEqual<T>(T value, T comparison, string name = null, string message = null)
          where T : IComparable<T>
       {
-         if (typeof(T).IsClass)
+         if (typeof(T).IsByRef)
          {
             IsNotNull(value as object, name, message);
 
@@ -725,7 +725,7 @@ namespace Jcd.Validations
       public static void NotInRange<T>(T value, T min, T max, string name = null, string message = null)
          where T : IComparable<T>
       {
-         if (typeof(T).IsClass)
+         if (typeof(T).IsByRef)
          {
             IsNotNull(value as object, name, message);
 

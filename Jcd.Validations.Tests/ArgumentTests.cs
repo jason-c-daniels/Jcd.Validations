@@ -1,43 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using Jcd.Validations.Tests.TestHelpers;
-using Jcd.Validations;
 using Xunit;
-        
+        // ReSharper disable ArrangeObjectCreationWhenTypeEvident
+
 namespace Jcd.Validations.Tests
 {
    public class ArgumentTests
    {
       #region Private Fields
+
       private const string DefaultArgumentExceptionMessage = "contains an invalid value";
       private const string DefaultArgumentNullExceptionMessage = "expected non-null";
       private const string DefaultArgumentOutOfRangeMessage = "Expected value within range";
       private const string DefaultNotFoundInCollectionMessage = "not found in";
-      private static readonly string[] DefaultExpectationViolationMessage = {"Expect", "to be", "it was"};
+      private static readonly string[] DefaultExpectationViolationMessage = { "Expect", "to be", "it was" };
       private static readonly object NullObject = null;
       private static readonly object NonNullObject = new object();
       private static readonly object NonNullObject2 = new object();
-      private static readonly object[] EmptyObjectCollection = { };
+      private static readonly object[] EmptyObjectCollection = Array.Empty<object>();
       private static readonly object[] NullObjectCollection = null;
-      private static readonly List<int> PopulatedIntCollection = new List<int>(new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 0});
+      private static readonly List<int> PopulatedIntCollection = new List<int>(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 });
       private const int ValueNotInList = 400;
+/*
+      private const int ValueInList1 = 1;
+*/
       private const int ValueInList2 = 4;
       private const int ValueInList3 = 9;
-
-      private static readonly string defaultArgumentExceptionMessage = "contains an invalid value";
-      private static readonly string defaultArgumentNullExceptionMessage = "expected non-null";
-      private static readonly string defaultArgumentOutOfRangeMessage = "Expected value within range";
-      private static readonly string defaultNotFoundInCollectionMessage = "not found in";
-      private static readonly string[] defaultExpectationViolationMessage = { "Expect", "to be", "it was" };
-      private static readonly object nullObject = null;
-      private static readonly object nonNullObject = new object();
-      private static readonly object nonNullObject2 = new object();
-      private static readonly object[] emptyObjectCollection = { };
-      private static readonly object[] nullObjectCollection = null;
-      private static readonly List<int> populatedIntCollection = new List<int>(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 });
-      private const int valueNotInList = 400;
-      private const int valueInList1 = 1;
-      private const int valueInList2 = 4;
 
       private const string NullString = null;
       private const string EmptyString = "";
@@ -45,9 +34,9 @@ namespace Jcd.Validations.Tests
       private const string SomeWhitespaceString = "    abc \r d \n e \t";
       private const string NonWhitespaceString = "abcdefghijklmnop";
 
-      private static readonly IntHolder Intholder1 = new IntHolder(1);
-      private static readonly IntHolder Intholder5 = new IntHolder(5);
-      private static readonly IntHolder Intholder9 = new IntHolder(9);
+      private static readonly IntHolder IntHolder1 = new IntHolder(1);
+      private static readonly IntHolder IntHolder5 = new IntHolder(5);
+      private static readonly IntHolder IntHolder9 = new IntHolder(9);
       #endregion Private Fields
 
       #region exception helpers
@@ -188,7 +177,7 @@ namespace Jcd.Validations.Tests
       }
 
       /// <summary>
-      ///    Validate that IsNull throws an exception when it recieves a value of non-null. Validate the verbiage and custom
+      ///    Validate that IsNull throws an exception when it receives a value of non-null. Validate the verbiage and custom
       ///    messaging as well.
       /// </summary>
       /// <param name="message">The custom message</param>
@@ -1086,15 +1075,15 @@ namespace Jcd.Validations.Tests
                                                                                          string message)
       {
          var ex = Assert.Throws<ArgumentException>(() =>
-                                                      Argument.IsGreaterThan(Intholder5,
-                                                                             Intholder9,
+                                                      Argument.IsGreaterThan(IntHolder5,
+                                                                             IntHolder9,
                                                                              paramName,
                                                                              message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "greater than");
 
          ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.IsGreaterThan(Intholder9, Intholder9, paramName, message));
+                                                  Argument.IsGreaterThan(IntHolder9, IntHolder9, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "greater than");
       }
@@ -1168,12 +1157,12 @@ namespace Jcd.Validations.Tests
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than");
 
          ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.IsLessThan(Intholder9, Intholder1, paramName, message));
+                                                  Argument.IsLessThan(IntHolder9, IntHolder1, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than");
 
          ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.IsLessThan(Intholder9, Intholder9, paramName, message));
+                                                  Argument.IsLessThan(IntHolder9, IntHolder9, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than");
       }
@@ -1195,8 +1184,8 @@ namespace Jcd.Validations.Tests
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than or equal to");
 
          ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.IsLessThanOrEqual(Intholder9,
-                                                                             Intholder1,
+                                                  Argument.IsLessThanOrEqual(IntHolder9,
+                                                                             IntHolder1,
                                                                              paramName,
                                                                              message));
 
@@ -1415,7 +1404,7 @@ namespace Jcd.Validations.Tests
       ///    Validate that Contains does not throw any exception when the search string contains the target character.
       /// </summary>
       [Fact]
-      public void Contains_StringChar_WhenSearchStringContainsTarget_DoesNotThrowAnySception()
+      public void Contains_StringChar_WhenSearchStringContainsTarget_DoesNotThrowAnyException()
       {
          Argument.Contains("abc", 'c');
       }
@@ -1430,7 +1419,7 @@ namespace Jcd.Validations.Tests
       }
 
       /// <summary>
-      ///    Validate that no exceptions are thrown when the target item exists in the collectionwhen
+      ///    Validate that no exceptions are thrown when the target item exists in the collection when
       ///    Contains is called.
       /// </summary>
       [Fact]
@@ -1495,7 +1484,7 @@ namespace Jcd.Validations.Tests
       }
 
       /// <summary>
-      ///    Validate that InRange for reference type throws noexception when value is between min and max.
+      ///    Validate that InRange for reference type throws no exception when value is between min and max.
       /// </summary>
       [Fact]
       public void InRangeReferenceType_WhenValueIsBetweenMinAndMax_ThrowsNoException()
@@ -1538,7 +1527,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsGreaterThan_WhenLeftIsGreaterThanRight_ThrowsNoException()
       {
-         Argument.IsGreaterThan(Intholder9, Intholder5, "none", "This should never fail!");
+         Argument.IsGreaterThan(IntHolder9, IntHolder5, "none", "This should never fail!");
       }
 
       /// <summary>
@@ -1557,7 +1546,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsLessThan_WhenValueIsLessThanComparison_ThrowsNoException()
       {
-         Argument.IsLessThan(Intholder5, Intholder9, "none", "This should never fail.");
+         Argument.IsLessThan(IntHolder5, IntHolder9, "none", "This should never fail.");
          Argument.IsLessThan(5, 9, "none", "This should never fail.");
       }
 
@@ -1567,9 +1556,9 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsLessThanOrEqual_WhenValueIsLessThanOrEqualToComparison_ThrowsNoException()
       {
-         Argument.IsLessThanOrEqual(Intholder5, Intholder9, "none", "This should never fail.");
+         Argument.IsLessThanOrEqual(IntHolder5, IntHolder9, "none", "This should never fail.");
          Argument.IsLessThanOrEqual(5, 9, "none", "This should never fail.");
-         Argument.IsLessThanOrEqual(Intholder5, Intholder5, "none", "This should never fail.");
+         Argument.IsLessThanOrEqual(IntHolder5, IntHolder5, "none", "This should never fail.");
          Argument.IsLessThanOrEqual(9, 9, "none", "This should never fail.");
       }
 

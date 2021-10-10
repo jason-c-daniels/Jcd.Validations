@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 
 using Jcd.Validations.Tests.TestHelpers;
-using Jcd.Validations;
-
 using Xunit;
 
 // ReSharper disable CollectionNeverUpdated.Local
@@ -108,6 +106,8 @@ namespace Jcd.Validations.Tests
       {
          var onFailureCalled = false;
          var onSuccessCalled = false;
+         // ReSharper disable once InlineTemporaryVariable
+         // ReSharper disable once ConvertToConstant.Local
          int x = 1, y = x;
 
          Assert.True(Check.AreEqual(x, y, () => onSuccessCalled = true, () => onFailureCalled = true),
@@ -125,7 +125,9 @@ namespace Jcd.Validations.Tests
       {
          var onFailureCalled = false;
          var onSuccessCalled = false;
-         int x = 1, y = 2;
+
+         const int x = 1;
+         const int y = 2;
 
          Assert.False(Check.AreEqual(x, y, () => onSuccessCalled = true, () => onFailureCalled = true),
                       $"AreEqual({x},{y}) failed.");
@@ -168,6 +170,7 @@ namespace Jcd.Validations.Tests
          var onFailureCalled = false;
          var onSuccessCalled = false;
          var o = new object();
+         // ReSharper disable once InlineTemporaryVariable
          var o2 = o;
 
          Assert.True(
@@ -828,10 +831,8 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsFalse_WhenGivenTrue_ReturnsFalse()
       {
-         bool onFailureCalled;
-         bool onSuccessCalled;
-         onFailureCalled = false;
-         onSuccessCalled = false;
+         var onFailureCalled = false;
+         var onSuccessCalled = false;
          Assert.False(Check.IsFalse(true, () => { onSuccessCalled = true; }, () => { onFailureCalled = true; }));
          Assert.True(onFailureCalled, "onFailure was not called when it was expected to be called.");
          Assert.False(onSuccessCalled, "onSuccess was called when it shouldn't have been");
@@ -845,7 +846,8 @@ namespace Jcd.Validations.Tests
       {
          var onFailureCalled = false;
          var onSuccessCalled = false;
-         int x = 2, y = 1;
+         const int x = 2;
+         const int y = 1;
 
          Assert.True(Check.IsGreaterThan(x, y, () => onSuccessCalled = true, () => onFailureCalled = true),
                      $"AreEqual({x},{y}) failed.");
@@ -862,14 +864,14 @@ namespace Jcd.Validations.Tests
       {
          var onFailureCalled = false;
          var onSuccessCalled = false;
-         int x = 1, y = 2;
+         const int x = 1;
+         const int y = 2;
 
          Assert.False(Check.IsGreaterThan(x, y, () => onSuccessCalled = true, () => onFailureCalled = true),
                       $"IsGreaterThan({x},{y}) failed.");
 
          Assert.True(onFailureCalled, "onFailure was not called when it was expected to be called.");
          Assert.False(onSuccessCalled, "onSuccess was called when it shouldn't have been");
-         y = 2;
 
          Assert.False(Check.IsGreaterThan(x, y, () => onSuccessCalled = true, () => onFailureCalled = true),
                       $"IsGreaterThan({y},{x}) failed.");
@@ -958,7 +960,8 @@ namespace Jcd.Validations.Tests
       {
          var onFailureCalled = false;
          var onSuccessCalled = false;
-         int x = 2, y = 1;
+         const int x = 2;
+         var y = 1;
 
          Assert.False(Check.IsLessThan(x, y, () => onSuccessCalled = true, () => onFailureCalled = true),
                       $"IsLessThan({x},{y}) failed.");
@@ -982,7 +985,8 @@ namespace Jcd.Validations.Tests
       {
          var onFailureCalled = false;
          var onSuccessCalled = false;
-         int x = 1, y = 2;
+         const int x = 1;
+         const int y = 2;
 
          Assert.True(Check.IsLessThan(x, y, () => onSuccessCalled = true, () => onFailureCalled = true),
                      $"IsLessThan({x},{y}) failed.");

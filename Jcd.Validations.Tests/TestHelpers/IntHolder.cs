@@ -1,4 +1,5 @@
 ﻿using System;
+// ReSharper disable UnusedMember.Global
 
 namespace Jcd.Validations.Tests.TestHelpers
 {
@@ -9,6 +10,8 @@ namespace Jcd.Validations.Tests.TestHelpers
    {
       #region Public Fields
 
+      // ReSharper disable once FieldCanBeMadeReadOnly.Global
+      // ReSharper disable once MemberCanBePrivate.Global
       public int Value;
 
       #endregion Public Fields

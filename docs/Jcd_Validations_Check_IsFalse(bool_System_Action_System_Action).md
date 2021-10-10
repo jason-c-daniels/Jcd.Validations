@@ -19,7 +19,7 @@ The action to take, if any, when value == false.
   
 #### Returns
 [System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')  
-the logical negation of value(true if false, fals if true)
+the logical negation of value(true if false, false if true)
 ### Remarks
 This is a rudimentary helper method. While public it has little value outside of this or a  
 similar framework.  

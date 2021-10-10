@@ -7,11 +7,11 @@ public static bool AreSameObject(object left, object right, System.Action onSucc
 #### Parameters
 <a name='Jcd_Validations_Check_AreSameObject(object_object_System_Action_System_Action)_left'></a>
 `left` [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object')  
-The lefthand side of the comparison
+The left hand side of the comparison
   
 <a name='Jcd_Validations_Check_AreSameObject(object_object_System_Action_System_Action)_right'></a>
 `right` [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object')  
-The righthand side of the comparison
+The right hand side of the comparison
   
 <a name='Jcd_Validations_Check_AreSameObject(object_object_System_Action_System_Action)_onSuccess'></a>
 `onSuccess` [System.Action](https://docs.microsoft.com/en-us/dotnet/api/System.Action 'System.Action')  

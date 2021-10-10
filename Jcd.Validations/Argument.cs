@@ -376,7 +376,7 @@ namespace Jcd.Validations
       /// <exception cref="ArgumentException">If the value is only whitespace or <see cref="String.Empty" />.</exception>
       public static void IsNotWhitespaceOrEmpty(string value, string name = null, string message = null)
       {
-         Check.Passes(() => (value == null) || (value.Trim().Length > 1),
+         Check.Passes(() => value == null || value.Trim().Length > 1,
                       onFailure: () =>
                                     RaiseArgumentException(name,
                                                            message ??

@@ -12,11 +12,11 @@ public static bool IsGreaterThan<T>(T left, T right, System.Action onSuccess=nul
 #### Parameters
 <a name='Jcd_Validations_Check_IsGreaterThan_T_(T_T_System_Action_System_Action)_left'></a>
 `left` [T](Jcd_Validations_Check_IsGreaterThan_T_(T_T_System_Action_System_Action).md#Jcd_Validations_Check_IsGreaterThan_T_(T_T_System_Action_System_Action)_T 'Jcd.Validations.Check.IsGreaterThan&lt;T&gt;(T, T, System.Action, System.Action).T')  
-The lefthand side of the comparison
+The left hand side of the comparison
   
 <a name='Jcd_Validations_Check_IsGreaterThan_T_(T_T_System_Action_System_Action)_right'></a>
 `right` [T](Jcd_Validations_Check_IsGreaterThan_T_(T_T_System_Action_System_Action).md#Jcd_Validations_Check_IsGreaterThan_T_(T_T_System_Action_System_Action)_T 'Jcd.Validations.Check.IsGreaterThan&lt;T&gt;(T, T, System.Action, System.Action).T')  
-The righthand side of the comparison
+The right hand side of the comparison
   
 <a name='Jcd_Validations_Check_IsGreaterThan_T_(T_T_System_Action_System_Action)_onSuccess'></a>
 `onSuccess` [System.Action](https://docs.microsoft.com/en-us/dotnet/api/System.Action 'System.Action')  

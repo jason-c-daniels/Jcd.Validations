@@ -49,7 +49,7 @@ namespace Jcd.Validations
       /// <param name="value">The value to negate, evaluate, then return</param>
       /// <param name="onSuccess">The action to take, if any, when value == false.</param>
       /// <param name="onFailure">The action to take, if any, when value == false.</param>
-      /// <returns>the logical negation of value(true if false, fals if true)</returns>
+      /// <returns>the logical negation of value(true if false, false if true)</returns>
       public static bool IsFalse(bool value, Action onSuccess = null, Action onFailure = null)
       {
          return Passes(() => !value, onSuccess, onFailure);
@@ -199,6 +199,7 @@ namespace Jcd.Validations
       /// <returns>True if the string is empty, false otherwise.</returns>
       public static bool IsEmpty(string value, Action onSuccess = null, Action onFailure = null)
       {
+         // ReSharper disable once MergeIntoPattern
          return Passes(() => value != null && value.Length == 0, onSuccess, onFailure);
       }
 
@@ -238,8 +239,8 @@ namespace Jcd.Validations
       /// Checks if <paramref name="left"/> is equivalent to <paramref name="right"/>.
       /// </summary>
       /// <typeparam name="T"></typeparam>
-      /// <param name="left">The lefthand side of the comparison</param>
-      /// <param name="right">The righthand side of the comparison</param>
+      /// <param name="left">The left hand side of the comparison</param>
+      /// <param name="right">The right hand side of the comparison</param>
       /// <param name="onSuccess">
       /// The action to take if <paramref name="left"/> is equivalent to <paramref name="right"/>
       /// </param>
@@ -265,8 +266,8 @@ namespace Jcd.Validations
       /// <summary>
       /// Checks if <paramref name="left"/> and <paramref name="right"/> are the same instance of an object.
       /// </summary>
-      /// <param name="left">The lefthand side of the comparison</param>
-      /// <param name="right">The righthand side of the comparison</param>
+      /// <param name="left">The left hand side of the comparison</param>
+      /// <param name="right">The right hand side of the comparison</param>
       /// <param name="onSuccess">The action to take if they're the same instance.</param>
       /// <param name="onFailure">The action to take if they're not the same instance.</param>
       /// <returns>true if left and right are the same instance.</returns>
@@ -315,8 +316,8 @@ namespace Jcd.Validations
       /// Checks if <paramref name="left"/> is greater than <paramref name="right"/>.
       /// </summary>
       /// <typeparam name="T"></typeparam>
-      /// <param name="left">The lefthand side of the comparison</param>
-      /// <param name="right">The righthand side of the comparison</param>
+      /// <param name="left">The left hand side of the comparison</param>
+      /// <param name="right">The right hand side of the comparison</param>
       /// <param name="onSuccess">
       /// The action to take if <paramref name="left"/> is greater than <paramref name="right"/>
       /// </param>
@@ -339,8 +340,8 @@ namespace Jcd.Validations
       /// Checks if <paramref name="left"/> is less than <paramref name="right"/>.
       /// </summary>
       /// <typeparam name="T"></typeparam>
-      /// <param name="left">The lefthand side of the comparison</param>
-      /// <param name="right">The righthand side of the comparison</param>
+      /// <param name="left">The left hand side of the comparison</param>
+      /// <param name="right">The right hand side of the comparison</param>
       /// <param name="onSuccess">
       /// The action to take if <paramref name="left"/> is less than <paramref name="right"/>
       /// </param>
@@ -466,7 +467,7 @@ namespace Jcd.Validations
          // ReSharper disable once PossibleNullReferenceException
          foreach (var c in conditionsArray)
          {
-            result = (c?.Invoke(value) ?? false);
+            result = c?.Invoke(value) ?? false;
 
             if (result)
             {
@@ -578,7 +579,7 @@ namespace Jcd.Validations
          // ReSharper disable once PossibleNullReferenceException
          foreach (var c in conditionsArray)
          {
-            result = (c?.Invoke(value) ?? true);
+            result = c?.Invoke(value) ?? true;
 
             if (!result)
             {
@@ -626,6 +627,7 @@ namespace Jcd.Validations
       private static void EnforceAllEntriesNonNull<T>(IEnumerable<T> values, string argumentName = null)
       {
          values = values ?? throw new ArgumentNullException(nameof(values));
+         // ReSharper disable once ConvertToNullCoalescingCompoundAssignment
          argumentName = argumentName ?? nameof(values);
 
          if (values.Any(c => c == null))

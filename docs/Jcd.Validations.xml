@@ -523,7 +523,7 @@
             <param name="value">The value to negate, evaluate, then return</param>
             <param name="onSuccess">The action to take, if any, when value == false.</param>
             <param name="onFailure">The action to take, if any, when value == false.</param>
-            <returns>the logical negation of value(true if false, fals if true)</returns>
+            <returns>the logical negation of value(true if false, false if true)</returns>
         </member>
         <member name="M:Jcd.Validations.Check.IsNotNull``1(``0,System.Action,System.Action)">
             <summary>
@@ -645,8 +645,8 @@
             Checks if <paramref name="left"/> is equivalent to <paramref name="right"/>.
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="left">The lefthand side of the comparison</param>
-            <param name="right">The righthand side of the comparison</param>
+            <param name="left">The left hand side of the comparison</param>
+            <param name="right">The right hand side of the comparison</param>
             <param name="onSuccess">
             The action to take if <paramref name="left"/> is equivalent to <paramref name="right"/>
             </param>
@@ -662,8 +662,8 @@
             <summary>
             Checks if <paramref name="left"/> and <paramref name="right"/> are the same instance of an object.
             </summary>
-            <param name="left">The lefthand side of the comparison</param>
-            <param name="right">The righthand side of the comparison</param>
+            <param name="left">The left hand side of the comparison</param>
+            <param name="right">The right hand side of the comparison</param>
             <param name="onSuccess">The action to take if they're the same instance.</param>
             <param name="onFailure">The action to take if they're not the same instance.</param>
             <returns>true if left and right are the same instance.</returns>
@@ -703,8 +703,8 @@
             Checks if <paramref name="left"/> is greater than <paramref name="right"/>.
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="left">The lefthand side of the comparison</param>
-            <param name="right">The righthand side of the comparison</param>
+            <param name="left">The left hand side of the comparison</param>
+            <param name="right">The right hand side of the comparison</param>
             <param name="onSuccess">
             The action to take if <paramref name="left"/> is greater than <paramref name="right"/>
             </param>
@@ -721,8 +721,8 @@
             Checks if <paramref name="left"/> is less than <paramref name="right"/>.
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="left">The lefthand side of the comparison</param>
-            <param name="right">The righthand side of the comparison</param>
+            <param name="left">The left hand side of the comparison</param>
+            <param name="right">The right hand side of the comparison</param>
             <param name="onSuccess">
             The action to take if <paramref name="left"/> is less than <paramref name="right"/>
             </param>

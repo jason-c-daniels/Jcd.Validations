@@ -22,7 +22,6 @@ namespace Jcd.Validations
    ///    can use the underlying "Check." class.
    ///    Craft your calls based on uses within this implementation.
    /// </remarks>
-
    // ReSharper disable once PartialTypeWithSinglePart
    public static partial class Argument
    {

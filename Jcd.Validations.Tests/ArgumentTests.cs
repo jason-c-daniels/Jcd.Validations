@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using Jcd.Validations.Tests.TestHelpers;
 using Xunit;
-        // ReSharper disable ArrangeObjectCreationWhenTypeEvident
+
+// ReSharper disable ArrangeObjectCreationWhenTypeEvident
 
 namespace Jcd.Validations.Tests
 {
@@ -73,9 +74,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void RaiseArgumentNullException_WhenCalled_ThrowsArgumentNullException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() =>
-                                                          Argument.RaiseArgumentNullException(paramName, message));
-
+         var ex = Assert.Throws<ArgumentNullException>(() => Argument.RaiseArgumentNullException(paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
       }
 
@@ -100,12 +99,7 @@ namespace Jcd.Validations.Tests
                                                                                                 string paramName,
                                                                                                 string message)
       {
-         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Argument.RaiseArgumentOutOfRangeException(actual,
-                                                                                                             min,
-                                                                                                             max,
-                                                                                                             paramName,
-                                                                                                             message));
-
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Argument.RaiseArgumentOutOfRangeException(actual, min, max, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentOutOfRangeMessage);
       }
 
@@ -131,12 +125,7 @@ namespace Jcd.Validations.Tests
                                                                                                  string paramName,
                                                                                                  string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() =>
-                                                      Argument.RaiseExpectationViolation(expected,
-                                                                                         actual,
-                                                                                         paramName,
-                                                                                         message));
-
+         var ex = Assert.Throws<ArgumentException>(() => Argument.RaiseExpectationViolation(expected, actual, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultExpectationViolationMessage);
       }
 
@@ -172,7 +161,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsNotNull_WhenGivenNull_ThrowsArgumentNullException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() => Argument.IsNotNull(NullObject, paramName, message));
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.IsNotNull(NullObject, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
       }
 
@@ -190,7 +179,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsNull_WhenGivenNonNull_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.IsNull(NonNullObject, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsNull(NonNullObject, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultExpectationViolationMessage);
       }
 
@@ -208,7 +197,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsTrue_WhenGivenFalse_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.IsTrue(false, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsTrue(false, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultExpectationViolationMessage);
       }
 
@@ -225,12 +214,7 @@ namespace Jcd.Validations.Tests
       private void Contains_WhenGivenPopulatedCollectionAndTargetIsNotFound_ThrowsArgumentException(string paramName,
                                                                                                     string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() =>
-                                                      Argument.Contains(PopulatedIntCollection,
-                                                                        ValueNotInList,
-                                                                        paramName,
-                                                                        message));
-
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.Contains(PopulatedIntCollection, ValueNotInList, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultNotFoundInCollectionMessage);
       }
 
@@ -245,12 +229,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       private void Contains_WhenGivenNullCollection_ThrowsArgumentNullException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() =>
-                                                          Argument.Contains(NullObjectCollection,
-                                                                            NonNullObject,
-                                                                            paramName,
-                                                                            message));
-
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.Contains(NullObjectCollection, NonNullObject, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
       }
 
@@ -265,12 +244,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       private void Contains_WhenGivenEmptyCollection_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() =>
-                                                      Argument.Contains(EmptyObjectCollection,
-                                                                        NonNullObject,
-                                                                        paramName,
-                                                                        message));
-
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.Contains(EmptyObjectCollection, NonNullObject, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "not found in");
       }
 
@@ -286,11 +260,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void DoesNotContain_WhenGivenNullCollection_ThrowsArgumentNullException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() => Argument.DoesNotContain(NullObjectCollection,
-                                                                                     NonNullObject,
-                                                                                     paramName,
-                                                                                     message));
-
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.DoesNotContain(NullObjectCollection, NonNullObject, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
       }
 
@@ -305,11 +275,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void DoesNotContain_WhenGivenItemIsFound_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.DoesNotContain(PopulatedIntCollection,
-                                                                                 ValueInList3,
-                                                                                 paramName,
-                                                                                 message));
-
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.DoesNotContain(PopulatedIntCollection,ValueInList3,paramName,message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "expected to not be in");
       }
 
@@ -325,9 +291,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void HasItems_WhenGivenNullCollection_ThrowsArgumentNullException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() =>
-                                                          Argument.HasItems(NullObjectCollection, paramName, message));
-
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.HasItems(NullObjectCollection, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
       }
 
@@ -343,9 +307,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void HasItems_WhenGivenEmptyCollection_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(
-                                                   () => Argument.HasItems(EmptyObjectCollection, paramName, message));
-
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.HasItems(EmptyObjectCollection, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "but it was empty");
       }
 
@@ -361,9 +323,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsEmpty_WhenGivenNullCollection_ThrowsArgumentNullException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() =>
-                                                          Argument.IsEmpty(NullObjectCollection, paramName, message));
-
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.IsEmpty(NullObjectCollection, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
       }
 
@@ -379,9 +339,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsEmpty_WhenGivenPopulatedCollection_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(
-                                                   () => Argument.IsEmpty(PopulatedIntCollection, paramName, message));
-
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsEmpty(PopulatedIntCollection, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "but it contained values");
       }
 
@@ -394,9 +352,7 @@ namespace Jcd.Validations.Tests
       [InlineData(SomeWhitespaceString)]
       public void IsNotEmpty_WhenPopulatedString_NoExceptionIsThrown(string data)
       {
-         Argument.IsNotEmpty(data,
-                             nameof(data),
-                             $"{nameof(Argument.IsNotEmpty)} should not throw an error for \"{data}\"");
+          Assert.Equal(data, Argument.IsNotEmpty(data, nameof(data), $"{nameof(Argument.IsNotEmpty)} should not throw an error for \"{data}\""));
       }
 
       /// <summary>
@@ -411,7 +367,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsNotEmpty_WhenGivenEmptyString_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.IsNotEmpty(string.Empty, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsNotEmpty(string.Empty, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "but it was empty");
       }
 
@@ -427,7 +383,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsEmpty_WhenGivenNullString_ThrowsArgumentNullException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() => Argument.IsEmpty(NullString, paramName, message));
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.IsEmpty(NullString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
       }
 
@@ -443,7 +399,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsEmpty_WhenGivenPopulatedString_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.IsEmpty(NonWhitespaceString, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsEmpty(NonWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "but it contains text");
       }
 
@@ -456,7 +412,7 @@ namespace Jcd.Validations.Tests
       [InlineData(AllWhitespaceString)]
       public void IsNotNullOrEmpty_WhenGivenNonNullAndNonEmptyString_ThrowsNoException(string data)
       {
-         Argument.IsNotNullOrEmpty(data, nameof(data), "this should never fail!");
+         Assert.Equal(data,Argument.IsNotNullOrEmpty(data, nameof(data), "this should never fail!"));
       }
 
       /// <summary>
@@ -471,9 +427,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsNotNullOrEmpty_WhenGivenNull_ThrowsArgumentNullException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() =>
-                                                          Argument.IsNotNullOrEmpty(NullString, paramName, message));
-
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.IsNotNullOrEmpty(NullString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "expected non-null");
       }
 
@@ -489,7 +443,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsNotNullOrEmpty_WhenGivenEmptyString_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.IsNotNullOrEmpty(EmptyString, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsNotNullOrEmpty(EmptyString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "to be non-null and non-empty");
       }
 
@@ -502,7 +456,7 @@ namespace Jcd.Validations.Tests
       [InlineData(EmptyString)]
       public void IsNotNullOrWhitespace_WhenGivenNonWhitespace_ThrowsNoException(string data)
       {
-         Argument.IsNotNullOrWhitespace(data, "none", "this should never fail.");
+         Assert.Equal(data,Argument.IsNotNullOrWhitespace(data, "none", "this should never fail."));
       }
 
       /// <summary>
@@ -515,21 +469,12 @@ namespace Jcd.Validations.Tests
       [InlineData(null, "message")]
       [InlineData("", "message")]
       [InlineData(" ", "message")]
-      public void IsNotNullOrWhitespace_WhenGivenNullOrWhitespace_ThrowsArgumentException(string paramName,
-                                                                                          string message)
+      public void IsNotNullOrWhitespace_WhenGivenNullOrWhitespace_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() =>
-                                                          Argument.IsNotNullOrWhitespace(NullString,
-                                                                                         paramName,
-                                                                                         message));
-
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.IsNotNullOrWhitespace(NullString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
 
-         var ex2 = Assert.Throws<ArgumentException>(() =>
-                                                       Argument.IsNotNullOrWhitespace(AllWhitespaceString,
-                                                                                      paramName,
-                                                                                      message));
-
+         var ex2 = Assert.Throws<ArgumentException>(() => _ = Argument.IsNotNullOrWhitespace(AllWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex2, paramName, message, new[] {"null", "whitespace"});
       }
 
@@ -541,7 +486,7 @@ namespace Jcd.Validations.Tests
       [InlineData(SomeWhitespaceString)]
       public void IsNotNullWhitespaceOrEmpty_WhenGivenNonWhitespace_ThrowsNoException(string data)
       {
-         Argument.IsNotNullWhitespaceOrEmpty(data, "none", "this should never fail.");
+         Assert.Equal(data,Argument.IsNotNullWhitespaceOrEmpty(data, "none", "this should never fail."));
       }
 
       /// <summary>
@@ -554,28 +499,15 @@ namespace Jcd.Validations.Tests
       [InlineData(null, "message")]
       [InlineData("", "message")]
       [InlineData(" ", "message")]
-      public void IsNotNullWhitespaceOrEmpty_WhenGivenEmptyNullOrWhitespace_ThrowsArgumentException(string paramName,
-                                                                                                    string message)
+      public void IsNotNullWhitespaceOrEmpty_WhenGivenEmptyNullOrWhitespace_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() =>
-                                                          Argument.IsNotNullWhitespaceOrEmpty(NullString,
-                                                                                              paramName,
-                                                                                              message));
-
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.IsNotNullWhitespaceOrEmpty(NullString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
 
-         var ex2 = Assert.Throws<ArgumentException>(() =>
-                                                       Argument.IsNotNullWhitespaceOrEmpty(AllWhitespaceString,
-                                                                                           paramName,
-                                                                                           message));
-
+         var ex2 = Assert.Throws<ArgumentException>(() => _ = Argument.IsNotNullWhitespaceOrEmpty(AllWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex2, paramName, message, new[] {"null", "whitespace", "empty"});
 
-         ex2 = Assert.Throws<ArgumentException>(() =>
-                                                   Argument.IsNotNullWhitespaceOrEmpty(string.Empty,
-                                                                                       paramName,
-                                                                                       message));
-
+         ex2 = Assert.Throws<ArgumentException>(() => _ = Argument.IsNotNullWhitespaceOrEmpty(string.Empty, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex2, paramName, message, new[] {"null", "whitespace", "empty"});
       }
 
@@ -589,7 +521,7 @@ namespace Jcd.Validations.Tests
       [InlineData(EmptyString)]
       public void IsNotWhitespace_WhenGivenNonWhitespaceNullOrEmpty_ThrowsNoException(string data)
       {
-         Argument.IsNotWhitespace(data, "none", "this should never fail.");
+         Assert.Equal(data,Argument.IsNotWhitespace(data, "none", "this should never fail."));
       }
 
       /// <summary>
@@ -604,11 +536,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsNotWhitespace_WhenGivenWhitespace_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() =>
-                                                      Argument.IsNotWhitespace(AllWhitespaceString,
-                                                                               paramName,
-                                                                               message));
-
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsNotWhitespace(AllWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "all whitespace");
       }
 
@@ -622,7 +550,7 @@ namespace Jcd.Validations.Tests
       [InlineData(NullString)]
       public void IsNotWhitespaceOrEmpty_WhenGivenNonWhitespaceOrNull_ThrowsNoException(string data)
       {
-         Argument.IsNotWhitespaceOrEmpty(data, "none", "this should never fail.");
+         Assert.Equal(data,Argument.IsNotWhitespaceOrEmpty(data, "none", "this should never fail."));
       }
 
       /// <summary>
@@ -638,16 +566,10 @@ namespace Jcd.Validations.Tests
       public void IsNotWhitespaceOrEmpty_WhenGivenEmptyWhitespace_ThrowsArgumentException(string paramName,
                                                                                           string message)
       {
-         var ex2 = Assert.Throws<ArgumentException>(() =>
-                                                       Argument.IsNotWhitespaceOrEmpty(AllWhitespaceString,
-                                                                                       paramName,
-                                                                                       message));
-
+         var ex2 = Assert.Throws<ArgumentException>(() => _ = Argument.IsNotWhitespaceOrEmpty(AllWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex2, paramName, message, "be non-empty and non-whitespace");
 
-         ex2 = Assert.Throws<ArgumentException>(() =>
-                                                   Argument.IsNotWhitespaceOrEmpty(string.Empty, paramName, message));
-
+         ex2 = Assert.Throws<ArgumentException>(() => _ = Argument.IsNotWhitespaceOrEmpty(string.Empty, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex2, paramName, message, "be non-empty and non-whitespace");
       }
 
@@ -663,12 +585,10 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void IsWhitespace_WhenGivenNonWhitespace_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() => Argument.IsWhitespace(NullString, paramName, message));
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.IsWhitespace(NullString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
 
-         var ex2 = Assert.Throws<ArgumentException>(() =>
-                                                       Argument.IsWhitespace(SomeWhitespaceString, paramName, message));
-
+         var ex2 = Assert.Throws<ArgumentException>(() => _ = Argument.IsWhitespace(SomeWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex2, paramName, message, "whitespace");
       }
 
@@ -680,7 +600,7 @@ namespace Jcd.Validations.Tests
       [InlineData(NullString)]
       public void IsNullOrEmpty_WhenGivenNullOrEmpty_ThrowsNoException(string data)
       {
-         Argument.IsNullOrEmpty(data, "none", "this should never fail.");
+         Assert.Equal(data,Argument.IsNullOrEmpty(data, "none", "this should never fail."));
       }
 
       /// <summary>
@@ -696,14 +616,10 @@ namespace Jcd.Validations.Tests
       public void IsNullOrEmpty_WhenGivenNonWhitespaceOrWhitespace_ThrowsArgumentException(string paramName,
                                                                                            string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() =>
-                                                      Argument.IsNullOrEmpty(SomeWhitespaceString, paramName, message));
-
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsNullOrEmpty(SomeWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "null or empty");
 
-         ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.IsNullOrEmpty(AllWhitespaceString, paramName, message));
-
+         ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsNullOrEmpty(AllWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "null or empty");
       }
 
@@ -715,7 +631,7 @@ namespace Jcd.Validations.Tests
       [InlineData(NullString)]
       public void IsNullOrWhitespace_WhenGivenWhitespaceNullOrEmpty_ThrowsNoException(string data)
       {
-         Argument.IsNullOrWhitespace(data, "none", "this should never fail.");
+         Assert.Equal(data, Argument.IsNullOrWhitespace(data, "none", "this should never fail."));
       }
 
       /// <summary>
@@ -731,13 +647,10 @@ namespace Jcd.Validations.Tests
       public void IsNullOrWhitespace_WhenGivenNonEmptyNonWhitespace_ThrowsArgumentException(string paramName,
                                                                                             string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() =>
-                                                      Argument.IsNullOrWhitespace(SomeWhitespaceString,
-                                                                                  paramName,
-                                                                                  message));
-
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsNullOrWhitespace(SomeWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "null or whitespace");
-         ex = Assert.Throws<ArgumentException>(() => Argument.IsNullOrWhitespace(EmptyString, paramName, message));
+
+         ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsNullOrWhitespace(EmptyString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "null or whitespace");
       }
 
@@ -750,7 +663,7 @@ namespace Jcd.Validations.Tests
       [InlineData(EmptyString)]
       public void IsNullWhitespaceOrEmpty_WhenGivenWhitespaceNullOrEmpty_ThrowsNoException(string data)
       {
-         Argument.IsNullWhitespaceOrEmpty(data, "none", "this should never fail.");
+         Assert.Equal(data,Argument.IsNullWhitespaceOrEmpty(data, "none", "this should never fail."));
       }
 
       /// <summary>
@@ -767,11 +680,7 @@ namespace Jcd.Validations.Tests
       public void IsNullWhitespaceOrEmpty_WhenGivenEmptyNullOrWhitespace_ThrowsArgumentException(string paramName,
                                                                                                  string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() =>
-                                                      Argument.IsNullWhitespaceOrEmpty(SomeWhitespaceString,
-                                                                                       paramName,
-                                                                                       message));
-
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsNullWhitespaceOrEmpty(SomeWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, new[] {"null", "whitespace", "empty"});
       }
 
@@ -783,7 +692,7 @@ namespace Jcd.Validations.Tests
       [InlineData(EmptyString)]
       public void IsWhitespaceOrEmpty_WhenGivenWhitespaceOrEmptyString_ThrowsNoException(string data)
       {
-         Argument.IsWhitespaceOrEmpty(data, "none", "this should never fail.");
+         Assert.Equal(data,Argument.IsWhitespaceOrEmpty(data, "none", "this should never fail."));
       }
 
       /// <summary>
@@ -799,16 +708,10 @@ namespace Jcd.Validations.Tests
       public void IsWhitespaceOrEmpty_WhenGivenEmptyWhitespace_ThrowsArgumentException(string paramName,
                                                                                        string message)
       {
-         var ex = Assert.Throws<ArgumentNullException>(() =>
-                                                          Argument.IsWhitespaceOrEmpty(NullString, paramName, message));
-
+         var ex = Assert.Throws<ArgumentNullException>(() => _ = Argument.IsWhitespaceOrEmpty(NullString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultArgumentNullExceptionMessage);
 
-         var ex2 = Assert.Throws<ArgumentException>(() =>
-                                                       Argument.IsWhitespaceOrEmpty(SomeWhitespaceString,
-                                                                                    paramName,
-                                                                                    message));
-
+         var ex2 = Assert.Throws<ArgumentException>(() => _ = Argument.IsWhitespaceOrEmpty(SomeWhitespaceString, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex2, paramName, message, "be whitespace or empty");
       }
 
@@ -823,7 +726,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void Contains_StringChar_WhenCharacterNotFound_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.Contains("string", 'c', paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ =  Argument.Contains("string", 'c', paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultNotFoundInCollectionMessage);
       }
 
@@ -838,7 +741,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void Contains_Substring_WhenCharacterNotFound_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.Contains("string", "c", paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.Contains("string", "c", paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, DefaultNotFoundInCollectionMessage);
       }
 
@@ -855,7 +758,7 @@ namespace Jcd.Validations.Tests
       public void AreEqual_ValueTypes_WhenTheValuesAreNotEqual_ThrowsArgumentException(string paramName,
                                                                                        string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.AreEqual(1, 2, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.AreEqual(1, 2, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "is not equal to");
       }
 
@@ -874,7 +777,7 @@ namespace Jcd.Validations.Tests
       {
          var ih1 = new IntHolder(1);
          var ih2 = new IntHolder(2);
-         var ex = Assert.Throws<ArgumentException>(() => Argument.AreEqual(ih1, ih2, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.AreEqual(ih1, ih2, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "is not equal to");
       }
 
@@ -893,11 +796,11 @@ namespace Jcd.Validations.Tests
       {
          var ih1 = new IntHolder(1);
          var ih2 = new IntHolder(2);
-         var ex = Assert.Throws<ArgumentException>(() => Argument.AreEqual(ih1, null, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.AreEqual(ih1, null, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "is not equal to");
 
          // now test the other side.
-         ex = Assert.Throws<ArgumentException>(() => Argument.AreEqual(null, ih2, paramName, message));
+         ex = Assert.Throws<ArgumentException>(() => _ = Argument.AreEqual(null, ih2, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "is not equal to");
       }
 
@@ -913,27 +816,15 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void AreSameObject_WhenObjectsAreDifferent_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() =>
-                                                      Argument.AreSameObject(NullObject,
-                                                                             NonNullObject,
-                                                                             paramName,
-                                                                             message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.AreSameObject(NullObject, NonNullObject, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "was not the expected instance");
 
-         ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.AreSameObject(NonNullObject,
-                                                                         NullObject,
-                                                                         paramName,
-                                                                         message));
+         ex = Assert.Throws<ArgumentException>(() => _ = Argument.AreSameObject(NonNullObject, NullObject, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "was not the expected instance");
 
-         ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.AreSameObject(NonNullObject,
-                                                                         NonNullObject2,
-                                                                         paramName,
-                                                                         message));
+         ex = Assert.Throws<ArgumentException>(() => _ = Argument.AreSameObject(NonNullObject, NonNullObject2, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "was not the expected instance");
       }
@@ -947,7 +838,7 @@ namespace Jcd.Validations.Tests
       [InlineData(5, 1, 5)]
       public void InRange_WhenValueIsBetweenMinAndMax_ThrowsNoException(int value, int min, int max)
       {
-         Argument.InRange(value, min, max, "none", "this should never fail!");
+         Assert.Equal(value,Argument.InRange(value, min, max, "none", "this should never fail!"));
       }
 
       /// <summary>
@@ -968,13 +859,11 @@ namespace Jcd.Validations.Tests
          var min = new IntHolder(1);
          var max = new IntHolder(5);
 
-         var ex = Assert.Throws<ArgumentOutOfRangeException>(() =>
-                                                                Argument.InRange(value1, min, max, paramName, message));
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => _ = Argument.InRange(value1, min, max, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "Expected value within range");
 
-         ex = Assert.Throws<ArgumentOutOfRangeException>(
-                                                         () => Argument.InRange(value2, min, max, paramName, message));
+         ex = Assert.Throws<ArgumentOutOfRangeException>(() => _ = Argument.InRange(value2, min, max, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "Expected value within range");
       }
@@ -992,9 +881,9 @@ namespace Jcd.Validations.Tests
       public void InRange_WhenValueIsOutsideOfRange_ThrowsArgumentOutOfRangeException(string paramName,
                                                                                       string message)
       {
-         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Argument.InRange(1, 2, 5, paramName, message));
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => _ = Argument.InRange(1, 2, 5, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "Expected value within range");
-         ex = Assert.Throws<ArgumentOutOfRangeException>(() => Argument.InRange(6, 2, 5, paramName, message));
+         ex = Assert.Throws<ArgumentOutOfRangeException>(() => _ = Argument.InRange(6, 2, 5, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "Expected value within range");
       }
 
@@ -1006,7 +895,7 @@ namespace Jcd.Validations.Tests
       [InlineData(8, 1, 5)]
       public void NotInRange_WhenValueIsNotInRange_ThrowsNoException(int value, int min, int max)
       {
-         Argument.NotInRange(value, min, max, "none", "this should never fail!");
+         Assert.Equal(value,Argument.NotInRange(value, min, max, "none", "this should never fail!"));
       }
 
       /// <summary>
@@ -1027,17 +916,11 @@ namespace Jcd.Validations.Tests
          var min = new IntHolder(1);
          var max = new IntHolder(5);
 
-         var ex = Assert.Throws<ArgumentOutOfRangeException>(() =>
-                                                                Argument.NotInRange(value1,
-                                                                                    min,
-                                                                                    max,
-                                                                                    paramName,
-                                                                                    message));
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => _ = Argument.NotInRange(value1, min, max, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "Expected value outside of the range ");
 
-         ex = Assert.Throws<ArgumentOutOfRangeException>(() =>
-                                                            Argument.NotInRange(value2, min, max, paramName, message));
+         ex = Assert.Throws<ArgumentOutOfRangeException>(() => _ = Argument.NotInRange(value2, min, max, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "Expected value outside of the range ");
       }
@@ -1055,9 +938,9 @@ namespace Jcd.Validations.Tests
       public void NotInRange_WhenValueIsInsideOfRange_ThrowsArgumentOutOfRangeException(string paramName,
                                                                                         string message)
       {
-         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Argument.NotInRange(1, 1, 5, paramName, message));
+         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => _ = Argument.NotInRange(1, 1, 5, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "Expected value outside of the range ");
-         ex = Assert.Throws<ArgumentOutOfRangeException>(() => Argument.NotInRange(5, 2, 5, paramName, message));
+         ex = Assert.Throws<ArgumentOutOfRangeException>(() => _ = Argument.NotInRange(5, 2, 5, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "Expected value outside of the range ");
       }
 
@@ -1082,8 +965,7 @@ namespace Jcd.Validations.Tests
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "greater than");
 
-         ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.IsGreaterThan(IntHolder9, IntHolder9, paramName, message));
+         ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsGreaterThan(IntHolder9, IntHolder9, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "greater than");
       }
@@ -1101,7 +983,7 @@ namespace Jcd.Validations.Tests
       public void IsGreaterThanOrEqual_WhenValueIsLessThanComparison_ThrowsArgumentException(string paramName,
                                                                                              string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.IsGreaterThanOrEqual(1, 2, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsGreaterThanOrEqual(1, 2, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex,
                                                   paramName,
@@ -1126,11 +1008,10 @@ namespace Jcd.Validations.Tests
          var value1 = new IntHolder(1);
          var value2 = new IntHolder(5);
 
-         var ex = Assert.Throws<ArgumentException>(() =>
-                                                      Argument.IsGreaterThanOrEqual(value1,
-                                                                                    value2,
-                                                                                    paramName,
-                                                                                    message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsGreaterThanOrEqual(value1,
+                                                   value2,
+                                                   paramName,
+                                                   message));
 
          ValidateArgumentExceptionMessageAndParam(ex,
                                                   paramName,
@@ -1151,18 +1032,16 @@ namespace Jcd.Validations.Tests
       public void IsLessThan_WhenValueIsGreaterOrEqualToComparison_ThrowsArgumentException(string paramName,
                                                                                            string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.IsLessThan(9, 1, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsLessThan(9, 1, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than");
-         ex = Assert.Throws<ArgumentException>(() => Argument.IsLessThan(1, 1, paramName, message));
-         ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than");
-
-         ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.IsLessThan(IntHolder9, IntHolder1, paramName, message));
-
+         ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsLessThan(1, 1, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than");
 
-         ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.IsLessThan(IntHolder9, IntHolder9, paramName, message));
+         ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsLessThan(IntHolder9, IntHolder1, paramName, message));
+
+         ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than");
+
+         ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsLessThan(IntHolder9, IntHolder9, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than");
       }
@@ -1180,14 +1059,10 @@ namespace Jcd.Validations.Tests
       public void IsLessThanOrEqual_WhenValueIsGreaterThanToComparison_ThrowsArgumentException(string paramName,
                                                                                                string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.IsLessThanOrEqual(9, 1, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsLessThanOrEqual(9, 1, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than or equal to");
 
-         ex = Assert.Throws<ArgumentException>(() =>
-                                                  Argument.IsLessThanOrEqual(IntHolder9,
-                                                                             IntHolder1,
-                                                                             paramName,
-                                                                             message));
+         ex = Assert.Throws<ArgumentException>(() => _ = Argument.IsLessThanOrEqual(IntHolder9, IntHolder1, paramName, message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "less than or equal to");
       }
@@ -1204,7 +1079,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void Fails_WhenCustomConditionFails_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.Fails(Check.IsTrue, true, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.Fails(Check.IsTrue, true, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "contains an invalid value");
       }
 
@@ -1219,15 +1094,11 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void FailsAny_WhenNoConditionsFail_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.FailsAny(
-                                                                           new Check.Signature<bool>[]
-                                                                           {
-                                                                              Check.IsTrue,
-                                                                              Check.IsTrue
-                                                                           },
-                                                                           true,
-                                                                           paramName,
-                                                                           message));
+         var ex = Assert.Throws<ArgumentException>(
+            () => _ = Argument.FailsAny(new Check.Signature<bool>[] { Check.IsTrue, Check.IsTrue },
+                                                true,
+                                                paramName,
+                                                message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "contains an invalid value");
       }
@@ -1243,15 +1114,11 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void FailsAll_WhenOneConditionsSucceeds_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.FailsAll(
-                                                                           new Check.Signature<bool>[]
-                                                                           {
-                                                                              Check.IsTrue,
-                                                                              Check.IsFalse
-                                                                           },
-                                                                           true,
-                                                                           paramName,
-                                                                           message));
+         var ex = Assert.Throws<ArgumentException>(
+            () => _ = Argument.FailsAll(new Check.Signature<bool>[] { Check.IsTrue, Check.IsFalse },
+                                                true,
+                                                paramName,
+                                                message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "contains an invalid value");
       }
@@ -1267,16 +1134,11 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void PassesAny_WhenAllConditionsFail_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.PassesAny(
-                                                                            new Check.Signature<bool>[]
-                                                                            {
-                                                                               Check
-                                                                                 .IsFalse,
-                                                                               Check.IsFalse
-                                                                            },
-                                                                            true,
-                                                                            paramName,
-                                                                            message));
+         var ex = Assert.Throws<ArgumentException>(
+            () => _ = Argument.PassesAny(new Check.Signature<bool>[] { Check.IsFalse, Check.IsFalse },
+                                                 true,
+                                                 paramName,
+                                                 message));
 
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "contains an invalid value");
       }
@@ -1292,7 +1154,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void PassesAll_WhenOneConditionsFail_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.PassesAll(
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.PassesAll(
                                                                             new Check.Signature<bool>[]
                                                                             {
                                                                                Check.IsTrue,
@@ -1317,7 +1179,7 @@ namespace Jcd.Validations.Tests
       [InlineData(" ", "message")]
       public void Passes_WhenCustomConditionFails_ThrowsArgumentException(string paramName, string message)
       {
-         var ex = Assert.Throws<ArgumentException>(() => Argument.Passes(Check.IsTrue, false, paramName, message));
+         var ex = Assert.Throws<ArgumentException>(() => _ = Argument.Passes(Check.IsTrue, false, paramName, message));
          ValidateArgumentExceptionMessageAndParam(ex, paramName, message, "contains an invalid value");
       }
 
@@ -1376,10 +1238,10 @@ namespace Jcd.Validations.Tests
       {
          var ih1 = new IntHolder(1);
          var ih2 = new IntHolder(1);
-         Argument.AreEqual(1, 1, "none", "this shouldn't ever fail");
-         Argument.AreEqual(ih1, ih2, "none", "this shouldn't ever fail");
-         Argument.AreEqual(ih1, ih1, "none", "this shouldn't ever fail");
-         Argument.AreEqual<IntHolder>(null, null, "none", "this shouldn't ever fail");
+         Assert.Equal(1,Argument.AreEqual(1, 1, "none", "this shouldn't ever fail"));
+         Assert.Equal(ih1,Argument.AreEqual(ih1, ih2, "none", "this shouldn't ever fail"));
+         Assert.Equal(ih1,Argument.AreEqual(ih1, ih1, "none", "this shouldn't ever fail"));
+         Assert.Null(Argument.AreEqual<IntHolder>(null, null, "none", "this shouldn't ever fail"));
       }
 
       /// <summary>
@@ -1388,7 +1250,9 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void AreSameObject_WhenBothValuesAreNull_ThrowsNoException()
       {
-         Argument.AreSameObject(null, null, "none", "this should not fail.");
+         const object a = null;
+         const object b = null;
+         Assert.Same(a,Argument.AreSameObject(a, b, "none", "this should not fail."));
       }
 
       /// <summary>
@@ -1397,7 +1261,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void AreSameObject_WhenBothValuesAreTheSameObject_ThrowsNoException()
       {
-         Argument.AreSameObject(NonNullObject, NonNullObject, "none", "this should not fail.");
+         Assert.Same(NonNullObject,Argument.AreSameObject(NonNullObject, NonNullObject, "none", "this should not fail."));
       }
 
       /// <summary>
@@ -1406,7 +1270,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void Contains_StringChar_WhenSearchStringContainsTarget_DoesNotThrowAnyException()
       {
-         Argument.Contains("abc", 'c');
+         Assert.Equal("abc",Argument.Contains("abc", 'c'));
       }
 
       /// <summary>
@@ -1415,7 +1279,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void Contains_Substring_WhenSearchStringContainsTarget_DoesNotThrowAnyException()
       {
-         Argument.Contains("abc", "c");
+         Assert.Equal("abc",Argument.Contains("abc", "c"));
       }
 
       /// <summary>
@@ -1425,7 +1289,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void Contains_WhenGivenPopulatedCollectionAndTargetIsFound_NoExceptionIsThrown()
       {
-         Argument.Contains(PopulatedIntCollection, ValueInList2, "none", "this shouldn't be an error!");
+         Assert.Same(PopulatedIntCollection,Argument.Contains(PopulatedIntCollection, ValueInList2, "none", "this shouldn't be an error!"));
       }
 
       /// <summary>
@@ -1435,7 +1299,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void DoesNotContain_WhenGivenEmptyCollection_ThrowsNoException()
       {
-         Argument.DoesNotContain(EmptyObjectCollection, NonNullObject, "none", "this should never error.");
+         Assert.Same(EmptyObjectCollection,Argument.DoesNotContain(EmptyObjectCollection, NonNullObject, "none", "this should never error."));
       }
 
       /// <summary>
@@ -1444,7 +1308,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void DoesNotContain_WhenGivenPopulatedCollectionAndTargetIsNotFound_NoExceptionIsThrown()
       {
-         Argument.DoesNotContain(PopulatedIntCollection, ValueNotInList, "none", "this shouldn't be an error!");
+         Assert.Same(PopulatedIntCollection,Argument.DoesNotContain(PopulatedIntCollection, ValueNotInList, "none", "this shouldn't be an error!"));
       }
 
       /// <summary>
@@ -1453,7 +1317,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void Fails_WhenCustomConditionFails_ThrowsNoException()
       {
-         Argument.Fails(Check.IsTrue, false, "none", "this should never fail.");
+         Assert.False(Argument.Fails(Check.IsTrue, false, "none", "this should never fail."));
       }
 
       /// <summary>
@@ -1462,7 +1326,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void FailsAll_WhenAllConditionsFail_ThrowsNoException()
       {
-         Argument.FailsAll(new Check.Signature<bool>[] {Check.IsTrue, Check.IsTrue}, false);
+         Assert.False(Argument.FailsAll(new Check.Signature<bool>[] {Check.IsTrue, Check.IsTrue}, false));
       }
 
       /// <summary>
@@ -1471,7 +1335,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void FailsAny_WhenAnyConditionsFail_ThrowsNoException()
       {
-         Argument.FailsAny(new Check.Signature<bool>[] {Check.IsTrue, Check.IsTrue}, false);
+         Assert.False(Argument.FailsAny(new Check.Signature<bool>[] {Check.IsTrue, Check.IsTrue}, false));
       }
 
       /// <summary>
@@ -1480,7 +1344,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void HasItems_WhenGivenPopulatedCollection_NoExceptionIsThrown()
       {
-         Argument.HasItems(PopulatedIntCollection, "none", "this shouldn't be an error!");
+         Assert.Same(PopulatedIntCollection,Argument.HasItems(PopulatedIntCollection, "none", "this shouldn't be an error!"));
       }
 
       /// <summary>
@@ -1492,7 +1356,7 @@ namespace Jcd.Validations.Tests
          var value = new IntHolder(2);
          var min = new IntHolder(1);
          var max = new IntHolder(5);
-         Argument.InRange(value, min, max, "none", "this should never fail!");
+         Assert.Equal(value,Argument.InRange(value, min, max, "none", "this should never fail!"));
       }
 
       /// <summary>
@@ -1501,7 +1365,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsEmpty_WhenGivenEmptyCollection_NoExceptionIsThrown()
       {
-         Argument.IsEmpty(EmptyObjectCollection, "none", "this shouldn't be an error!");
+         Assert.Equal(EmptyObjectCollection,Argument.IsEmpty(EmptyObjectCollection, "none", "this shouldn't be an error!"));
       }
 
       /// <summary>
@@ -1516,9 +1380,9 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsFalse_WhenGivenFalse_NoExceptionIsThrown()
       {
-         Argument.IsFalse(false);
-         Argument.IsFalse(false, "param");
-         Argument.IsFalse(false, "param", "message");
+         Assert.False(Argument.IsFalse(false));
+         Assert.False(Argument.IsFalse(false, "param"));
+         Assert.False(Argument.IsFalse(false, "param", "message"));
       }
 
       /// <summary>
@@ -1527,7 +1391,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsGreaterThan_WhenLeftIsGreaterThanRight_ThrowsNoException()
       {
-         Argument.IsGreaterThan(IntHolder9, IntHolder5, "none", "This should never fail!");
+         Assert.Equal(IntHolder9,Argument.IsGreaterThan(IntHolder9, IntHolder5, "none", "This should never fail!"));
       }
 
       /// <summary>
@@ -1536,8 +1400,8 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsGreaterThanOrEqual_WhenValueIsGreaterThanOrEqualToComparison_ThrowsNoException()
       {
-         Argument.IsGreaterThanOrEqual(1, 1, "none", "this should never fail");
-         Argument.IsGreaterThanOrEqual(2, 1, "none", "this should never fail");
+         Assert.Equal(1,Argument.IsGreaterThanOrEqual(1, 1, "none", "this should never fail"));
+         Assert.Equal(2,Argument.IsGreaterThanOrEqual(2, 1, "none", "this should never fail"));
       }
 
       /// <summary>
@@ -1546,8 +1410,8 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsLessThan_WhenValueIsLessThanComparison_ThrowsNoException()
       {
-         Argument.IsLessThan(IntHolder5, IntHolder9, "none", "This should never fail.");
-         Argument.IsLessThan(5, 9, "none", "This should never fail.");
+         Assert.Equal(IntHolder5,Argument.IsLessThan(IntHolder5, IntHolder9, "none", "This should never fail."));
+         Assert.Equal(5, Argument.IsLessThan(5, 9, "none", "This should never fail."));
       }
 
       /// <summary>
@@ -1556,10 +1420,10 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsLessThanOrEqual_WhenValueIsLessThanOrEqualToComparison_ThrowsNoException()
       {
-         Argument.IsLessThanOrEqual(IntHolder5, IntHolder9, "none", "This should never fail.");
-         Argument.IsLessThanOrEqual(5, 9, "none", "This should never fail.");
-         Argument.IsLessThanOrEqual(IntHolder5, IntHolder5, "none", "This should never fail.");
-         Argument.IsLessThanOrEqual(9, 9, "none", "This should never fail.");
+         Assert.Equal(IntHolder5,Argument.IsLessThanOrEqual(IntHolder5, IntHolder9, "none", "This should never fail."));
+         Assert.Equal(5,Argument.IsLessThanOrEqual(5, 9, "none", "This should never fail."));
+         Assert.Equal(IntHolder5,Argument.IsLessThanOrEqual(IntHolder5, IntHolder5, "none", "This should never fail."));
+         Assert.Equal(9,Argument.IsLessThanOrEqual(9, 9, "none", "This should never fail."));
       }
 
       /// <summary>
@@ -1569,7 +1433,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsNotEmpty_WhenGivenNullString_ThrowsNoException()
       {
-         Argument.IsNotEmpty(NullString, "none", "This shouldn't fail.");
+         Assert.Null(Argument.IsNotEmpty(NullString, "none", "This shouldn't fail."));
       }
 
       /// <summary>
@@ -1578,7 +1442,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsNotNull_WhenGivenNonNull_NoExceptionIsThrown()
       {
-         Argument.IsNotNull(NonNullObject, "none", "this error shouldn't have happened.");
+         Assert.NotNull(Argument.IsNotNull(NonNullObject, "none", "this error shouldn't have happened."));
       }
 
       /// <summary>
@@ -1587,7 +1451,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsNull_WhenGivenNull_NoExceptionIsThrown()
       {
-         Argument.IsNull(NullObject, "none", "this error shouldn't have happened.");
+         Assert.Null(Argument.IsNull(NullObject, "none", "this error shouldn't have happened."));
       }
 
       /// <summary>
@@ -1596,9 +1460,9 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsTrue_WhenGivenTrue_NoExceptionIsThrown()
       {
-         Argument.IsTrue(true);
-         Argument.IsTrue(true, "param");
-         Argument.IsTrue(true, "param", "message");
+         Assert.True(Argument.IsTrue(true));
+         Assert.True(Argument.IsTrue(true, "param"));
+         Assert.True(Argument.IsTrue(true, "param", "message"));
       }
 
       /// <summary>
@@ -1607,7 +1471,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void IsWhitespace_WhenGivenWhitespace_ThrowsNoException()
       {
-         Argument.IsWhitespace(AllWhitespaceString, "none", "this should never fail.");
+         Assert.Equal(AllWhitespaceString,Argument.IsWhitespace(AllWhitespaceString, "none", "this should never fail."));
       }
 
       /// <summary>
@@ -1616,7 +1480,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void Passes_WhenCustomConditionSucceeds_ThrowsNoException()
       {
-         Argument.Passes(Check.IsTrue, true, "none", "this should never fail.");
+         Assert.True(Argument.Passes(Check.IsTrue, true, "none", "this should never fail."));
       }
            
       /// <summary>
@@ -1625,7 +1489,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void PassesAll_WhenAllConditionsSucceed_ThrowsNoException()
       {
-         Argument.PassesAny(new Check.Signature<bool>[] {Check.IsTrue, Check.IsTrue}, true);
+         Assert.True(Argument.PassesAny(new Check.Signature<bool>[] {Check.IsTrue, Check.IsTrue}, true));
       }
 
       /// <summary>
@@ -1634,7 +1498,7 @@ namespace Jcd.Validations.Tests
       [Fact]
       public void PassesAny_WhenAnyConditionsSucceeds_ThrowsNoException()
       {
-         Argument.PassesAny(new Check.Signature<bool>[] {Check.IsTrue, Check.IsFalse}, true);
+         Assert.True(Argument.PassesAny(new Check.Signature<bool>[] {Check.IsTrue, Check.IsFalse}, true));
       }
       #endregion
    }

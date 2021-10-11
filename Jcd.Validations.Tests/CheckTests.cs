@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Jcd.Validations.Tests.TestHelpers;
 using Xunit;
+// ReSharper disable UnusedParameter.Local
 
 // ReSharper disable CollectionNeverUpdated.Local
 // ReSharper disable ExpressionIsAlwaysNull

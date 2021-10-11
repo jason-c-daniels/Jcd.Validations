@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -149,13 +150,12 @@ namespace Jcd.Validations
       /// <param name="onSuccess">The action to take, if any, when the collection has entries.</param>
       /// <param name="onFailure">The action to take, if any, when the collection is empty.</param>
       /// <returns>False if list is empty, true otherwise</returns>
-      public static bool HasItems<T>(IEnumerable<T> list, Action onSuccess = null, Action onFailure = null)
+      public static bool HasItems<T>(T list, Action onSuccess = null, Action onFailure = null)
+       where T : IEnumerable
       {
-         var array = list as T[] ?? list?.ToArray();
-         EnforceNonNull(array);
-
-         // ReSharper disable once AssignNullToNotNullAttribute
-         return Passes(() => array.Any(), onSuccess, onFailure);
+         EnforceNonNull(list);
+         var enumerator = list.GetEnumerator();
+         return Passes(() => enumerator.MoveNext(), onSuccess, onFailure);
       }
 
       /// <summary>
@@ -166,12 +166,11 @@ namespace Jcd.Validations
       /// <param name="onSuccess">The action to take, if any, when the collection is empty.</param>
       /// <param name="onFailure">The action to take, if any, when the collection is not empty.</param>
       /// <returns>True if list is empty, false otherwise</returns>
-      public static bool IsEmpty<T>(IEnumerable<T> list, Action onSuccess = null, Action onFailure = null)
+      public static bool IsEmpty<T>(T list, Action onSuccess = null, Action onFailure = null)
+         where T : IEnumerable
       {
-         var array = list as T[] ?? list?.ToArray();
-         EnforceNonNull(array);
-
-         return Passes(() => !HasItems(array), onSuccess, onFailure);
+         EnforceNonNull(list);
+         return Passes(() => !HasItems(list), onSuccess, onFailure);
       }
 
       #endregion collection operations

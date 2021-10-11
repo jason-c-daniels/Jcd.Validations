@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -110,10 +111,12 @@ namespace Jcd.Validations
       /// <param name="value">The value of the argument.</param>
       /// <param name="name">the argument name.</param>
       /// <param name="message">the error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">When <paramref name="value" /> is true</exception>
-      public static void IsFalse(bool value, string name = null, string message = null)
+      public static bool IsFalse(bool value, string name = null, string message = null)
       {
          Check.IsFalse(value, onFailure: () => RaiseExpectationViolation(false, true, name, message));
+         return value;
       }
 
       /// <summary>
@@ -123,11 +126,13 @@ namespace Jcd.Validations
       /// <param name="value">The value of the argument.</param>
       /// <param name="name">the argument name.</param>
       /// <param name="message">the error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentNullException">When <paramref name="value" /> is null</exception>
-      public static void IsNotNull<T>(T value, string name = null, string message = null)
+      public static T IsNotNull<T>(T value, string name = null, string message = null)
          where T : class
       {
          Check.IsNotNull(value, onFailure: () => RaiseArgumentNullException(name, message));
+         return value;
       }
 
       /// <summary>
@@ -137,11 +142,13 @@ namespace Jcd.Validations
       /// <param name="value">The value of the argument.</param>
       /// <param name="name">the argument name.</param>
       /// <param name="message">the error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">When <paramref name="value" /> is not null</exception>
-      public static void IsNull<T>(T value, string name = null, string message = null)
+      public static T IsNull<T>(T value, string name = null, string message = null)
          where T : class
       {
          Check.IsNull(value, onFailure: () => RaiseExpectationViolation("null", "non-null", name, message));
+         return value;
       }
 
       /// <summary>
@@ -150,10 +157,12 @@ namespace Jcd.Validations
       /// <param name="value">The value of the argument.</param>
       /// <param name="name">the argument name.</param>
       /// <param name="message">the error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">When <paramref name="value" /> is false.</exception>
-      public static void IsTrue(bool value, string name = null, string message = null)
+      public static bool IsTrue(bool value, string name = null, string message = null)
       {
          Check.IsTrue(value, onFailure: () => RaiseExpectationViolation(true, false, name, message));
+         return value;
       }
 
       #endregion Boolean and Null checks
@@ -164,13 +173,16 @@ namespace Jcd.Validations
       ///    Ensure a value exists within an enumerable.
       /// </summary>
       /// <typeparam name="T">The type of the target value.</typeparam>
+      /// <typeparam name="TL">The type of the enumerable, must be derived from IEnumerable of T</typeparam>
       /// <param name="list">The enumerable</param>
       /// <param name="target">The value being sought.</param>
       /// <param name="name">the argument name.</param>
       /// <param name="message">the error message.</param>
+      /// <returns>the container that was checked</returns>
       /// <exception cref="ArgumentNullException">When <paramref name="list" /> is null.</exception>
       /// <exception cref="ArgumentException">When <paramref name="target" /> can't be found.</exception>
-      public static void Contains<T>(IEnumerable<T> list, T target, string name = null, string message = null)
+      public static TL Contains<T,TL>(TL list, T target, string name = null, string message = null)
+         where TL : IEnumerable<T>
       {
          var enumerable = list as T[] ?? list?.ToArray();
          IsNotNull(enumerable, name, message);
@@ -178,19 +190,23 @@ namespace Jcd.Validations
          Check.Contains(enumerable,
                         target,
                         onFailure: () => RaiseArgumentException(name, message ?? $"{target} was not found in {name}."));
+         return list;
       }
 
       /// <summary>
       ///    Ensure a value doesn't exist within an enumerable.
       /// </summary>
       /// <typeparam name="T">The type of the target value.</typeparam>
+      /// <typeparam name="TL">The containing enumerable</typeparam>
       /// <param name="list">The enumerable</param>
       /// <param name="target">The value being sought.</param>
       /// <param name="name">the argument name.</param>
       /// <param name="message">the error message.</param>
+      /// <returns>the container that was checked</returns>
       /// <exception cref="ArgumentNullException">When <paramref name="list" /> is null.</exception>
       /// <exception cref="ArgumentException">When <paramref name="target" /> was found.</exception>
-      public static void DoesNotContain<T>(IEnumerable<T> list, T target, string name = null, string message = null)
+      public static TL DoesNotContain<T,TL>(TL list, T target, string name = null, string message = null)
+         where TL : class, IEnumerable<T>
       {
          // ReSharper disable once PossibleMultipleEnumeration
          IsNotNull(list, name, message);
@@ -201,6 +217,7 @@ namespace Jcd.Validations
                               onFailure: () => RaiseArgumentException(name,
                                                                       message ??
                                                                       $"{target} was expected to not be in {name}, but was found."));
+         return list;
       }
 
       /// <summary>
@@ -210,11 +227,13 @@ namespace Jcd.Validations
       /// <param name="list">The enumerable</param>
       /// <param name="name">the argument name.</param>
       /// <param name="message">the error message.</param>
+      /// <returns>the container</returns>
       /// <exception cref="ArgumentNullException">When <paramref name="list" /> is null.</exception>
       /// <exception cref="ArgumentException">
       ///    When <paramref name="list" /> no items were found.
       /// </exception>
-      public static void HasItems<T>(IEnumerable<T> list, string name = null, string message = null)
+      public static T HasItems<T>(T list, string name = null, string message = null)
+         where T : class, IEnumerable
       {
          // ReSharper disable once PossibleMultipleEnumeration
          IsNotNull(list, name, message);
@@ -224,6 +243,7 @@ namespace Jcd.Validations
                         onFailure: () => RaiseArgumentException(name,
                                                                 message ??
                                                                 $"Expected {name} to contain at least one item, but it was empty."));
+         return list;
       }
 
       /// <summary>
@@ -233,11 +253,13 @@ namespace Jcd.Validations
       /// <param name="list">The enumerable to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the container</returns>
       /// <exception cref="ArgumentNullException">When <paramref name="list" /> is null.</exception>
       /// <exception cref="ArgumentException">
       ///    When <paramref name="list" /> at least one item was found.
       /// </exception>
-      public static void IsEmpty<T>(IEnumerable<T> list, string name = null, string message = null)
+      public static T IsEmpty<T>(T list, string name = null, string message = null)
+         where T : class, IEnumerable
       {
          // ReSharper disable once PossibleMultipleEnumeration
          IsNotNull(list, name, message);
@@ -247,6 +269,7 @@ namespace Jcd.Validations
                        onFailure: () => RaiseArgumentException(name,
                                                                message ??
                                                                $"Expected {name} to be an empty collection, but it contained values."));
+         return list;
       }
 
       #endregion collection operations
@@ -259,13 +282,15 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">If the value is <see cref="String.Empty" />.</exception>
-      public static void IsNotEmpty(string value, string name = null, string message = null)
+      public static string IsNotEmpty(string value, string name = null, string message = null)
       {
          Check.IsNotEmpty(value,
                           onFailure: () => RaiseArgumentException(name,
                                                                   message ??
                                                                   $"Expected {name} to be a non-empty string, but it was empty."));
+         return value;
       }
 
       /// <summary>
@@ -274,9 +299,10 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentNullException">If the value is null.</exception>
       /// <exception cref="ArgumentException">If the value is not <see cref="String.Empty" />.</exception>
-      public static void IsEmpty(string value, string name = null, string message = null)
+      public static string IsEmpty(string value, string name = null, string message = null)
       {
          IsNotNull(value, name, message);
 
@@ -284,6 +310,7 @@ namespace Jcd.Validations
                        onFailure: () => RaiseArgumentException(name,
                                                                message ??
                                                                $"Expected {name} to be an empty string, but it contains text."));
+         return value;
       }
 
       /// <summary>
@@ -292,9 +319,10 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">If the value is <see cref="String.Empty" />.</exception>
       /// <exception cref="ArgumentNullException">If the value is null.</exception>
-      public static void IsNotNullOrEmpty(string value, string name = null, string message = null)
+      public static string IsNotNullOrEmpty(string value, string name = null, string message = null)
       {
          IsNotNull(value, name, message);
 
@@ -302,6 +330,7 @@ namespace Jcd.Validations
                           onFailure: () => RaiseArgumentException(name,
                                                                   message ??
                                                                   $"Expected {name} to be non-null and non-empty."));
+         return value;
       }
 
       /// <summary>
@@ -310,11 +339,12 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">If the value is null
-      ///    or <see cref="String.Empty">String.Empty</see>
-      ///    .</exception>
+      ///    or <see cref="String.Empty">String.Empty</see>.
+      /// </exception>
       /// <exception cref="ArgumentNullException">If the value is null.</exception>
-      public static void IsNotNullOrWhitespace(string value, string name = null, string message = null)
+      public static string IsNotNullOrWhitespace(string value, string name = null, string message = null)
       {
          IsNotNull(value, name, message);
 
@@ -322,6 +352,7 @@ namespace Jcd.Validations
                                onFailure: () => RaiseArgumentException(name,
                                                                        message ??
                                                                        $"Expected {name} to be non-null and non-whitespace."));
+         return value;
       }
 
       /// <summary>
@@ -330,13 +361,14 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">
       ///    If the value is null
       ///    , only whitespace, or <see cref="String.Empty">String.Empty</see>
       ///    .
       /// </exception>
       /// <exception cref="ArgumentNullException">If the value is null.</exception>
-      public static void IsNotNullWhitespaceOrEmpty(string value, string name = null, string message = null)
+      public static string IsNotNullWhitespaceOrEmpty(string value, string name = null, string message = null)
       {
          IsNotNull(value, name, message);
 
@@ -345,6 +377,7 @@ namespace Jcd.Validations
                         onFailure: () => RaiseArgumentException(name,
                                                                 message ??
                                                                 $"Expected {name} to be non-null, non-empty, and non-whitespace."));
+         return value;
       }
 
       /// <summary>
@@ -354,10 +387,11 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">
       ///    If the value is only whitespace and a string length of at least 1.
       /// </exception>
-      public static void IsNotWhitespace(string value, string name = null, string message = null)
+      public static string IsNotWhitespace(string value, string name = null, string message = null)
       {
          Check.PassesAny(new Check.Signature<string>[] {Check.IsNull, Check.IsNotWhitespace},
                          value,
@@ -365,6 +399,7 @@ namespace Jcd.Validations
                                        RaiseArgumentException(name,
                                                               message ??
                                                               $"Invalid argument: {name} is all whitespace."));
+         return value;
       }
 
       /// <summary>
@@ -373,14 +408,17 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">If the value is only whitespace or <see cref="String.Empty" />.</exception>
-      public static void IsNotWhitespaceOrEmpty(string value, string name = null, string message = null)
+      public static string IsNotWhitespaceOrEmpty(string value, string name = null, string message = null)
       {
          Check.Passes(() => value == null || value.Trim().Length > 1,
                       onFailure: () =>
                                     RaiseArgumentException(name,
                                                            message ??
                                                            $"Expected {name} to be non-empty and non-whitespace."));
+
+         return value;
       }
 
       /// <summary>
@@ -389,15 +427,17 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">
       ///    If the value is <see cref="String.Empty" /> or null.
       /// </exception>
-      public static void IsNullOrEmpty(string value, string name = null, string message = null)
+      public static string IsNullOrEmpty(string value, string name = null, string message = null)
       {
          Check.PassesAny(new Check.Signature<string>[] {Check.IsNull, Check.IsEmpty},
                          value,
                          onFailure: () => RaiseArgumentException(name,
                                                                  message ?? $"Expected {name} to be null or empty"));
+         return value;
       }
 
       /// <summary>
@@ -407,16 +447,18 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">
       ///    If the value is not null, or whitespace of at least one character.
       /// </exception>
-      public static void IsNullOrWhitespace(string value, string name = null, string message = null)
+      public static string IsNullOrWhitespace(string value, string name = null, string message = null)
       {
          Check.PassesAny(new Check.Signature<string>[] {Check.IsNull, Check.IsWhitespace},
                          value,
                          onFailure: () => RaiseArgumentException(name,
                                                                  message ??
                                                                  $"Expected {name} to be null or whitespace"));
+         return value;
       }
 
       /// <summary>
@@ -425,10 +467,11 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">
       ///    If the value is not null, <see cref="String.Empty" /> ,or whitespace of at least one character.
       /// </exception>
-      public static void IsNullWhitespaceOrEmpty(string value, string name = null, string message = null)
+      public static string IsNullWhitespaceOrEmpty(string value, string name = null, string message = null)
       {
          Check.PassesAny(new Check.Signature<string>[] {Check.IsNull, Check.IsWhitespace, Check.IsEmpty},
                          value,
@@ -436,6 +479,7 @@ namespace Jcd.Validations
                                        RaiseArgumentException(name,
                                                               message ??
                                                               $"Expected {name} to be null, whitespace, or empty"));
+         return value;
       }
 
       /// <summary>
@@ -444,11 +488,12 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">
       ///    If the value is not whitespace of at least one character.
       /// </exception>
       /// <exception cref="ArgumentNullException">If the value is null.</exception>
-      public static void IsWhitespace(string value, string name = null, string message = null)
+      public static string IsWhitespace(string value, string name = null, string message = null)
       {
          IsNotNull(value, name, message);
 
@@ -457,6 +502,7 @@ namespace Jcd.Validations
                                                                        "non-whitespace",
                                                                        name,
                                                                        message));
+         return value;
       }
 
       /// <summary>
@@ -465,11 +511,12 @@ namespace Jcd.Validations
       /// <param name="value">The value to test.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">
       ///    If the value is null, or non-whitespace of 1 or more characters.
       /// </exception>
       /// <exception cref="ArgumentNullException">When value is null</exception>
-      public static void IsWhitespaceOrEmpty(string value, string name = null, string message = null)
+      public static string IsWhitespaceOrEmpty(string value, string name = null, string message = null)
       {
          IsNotNull(value, name, message);
 
@@ -479,6 +526,7 @@ namespace Jcd.Validations
                                        RaiseArgumentException(name,
                                                               message ??
                                                               $"Expected {name} to be whitespace or empty."));
+         return value;
       }
 
       /// <summary>
@@ -488,13 +536,16 @@ namespace Jcd.Validations
       /// <param name="target">the substring to search for</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
-      public static void Contains(string searchString, string target, string name = null, string message = null)
+      /// <returns>the searchString</returns>
+      public static string Contains(string searchString, string target, string name = null, string message = null)
       {
          IsNotNull(searchString, name, message);
          IsNotNull(target, name, "Incorrect validation configuration. The value to check for must be non-null.");
 
          Check.Passes(() => searchString.Contains(target),
                       onFailure: () => RaiseArgumentException(name, message ?? $"{target} was not found in {name}."));
+
+         return searchString;
       }
 
       #endregion string operations
@@ -509,8 +560,9 @@ namespace Jcd.Validations
       /// <param name="comparison">The expected value.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">When the values are not equivalent.</exception>
-      public static void AreEqual<T>(T value, T comparison, string name = null, string message = null)
+      public static T AreEqual<T>(T value, T comparison, string name = null, string message = null)
          where T : IComparable<T>
       {
          Check.AreEqual(value,
@@ -519,6 +571,7 @@ namespace Jcd.Validations
                                       RaiseArgumentException(name,
                                                              message ??
                                                              $"Value for {name} ({value}) is not equal to {comparison}"));
+         return value;
       }
 
       /// <summary>
@@ -528,16 +581,19 @@ namespace Jcd.Validations
       /// <param name="comparison">The expected value.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">
       ///    When the objects are not the same, or only one is null.
       /// </exception>
-      public static void AreSameObject(object value, object comparison, string name = null, string message = null)
+      public static T AreSameObject<T>(T value, T comparison, string name = null, string message = null)
+         where T : class
       {
          Check.AreSameObject(value,
                              comparison,
                              onFailure: () => RaiseArgumentException(name,
                                                                      message ??
                                                                      $"Object for {name} was not the expected instance."));
+         return value;
       }
 
       /// <summary>
@@ -549,11 +605,12 @@ namespace Jcd.Validations
       /// <param name="max">The maximum value for the range (inclusive)</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentNullException">
       ///    When <paramref name="value" />, <paramref name="min" /> or <paramref name="max" /> are null.
       /// </exception>
       /// <exception cref="ArgumentException">When the value is outside of the specified range.</exception>
-      public static void InRange<T>(T value, T min, T max, string name = null, string message = null)
+      public static T InRange<T>(T value, T min, T max, string name = null, string message = null)
          where T : IComparable<T>
       {
          if (typeof(T).IsByRef)
@@ -573,6 +630,7 @@ namespace Jcd.Validations
                        min,
                        max,
                        onFailure: () => RaiseArgumentOutOfRangeException(value, min, max, name, message));
+         return value;
       }
 
       /// <summary>
@@ -583,13 +641,14 @@ namespace Jcd.Validations
       /// <param name="comparison">What <paramref name="value" /> must be greater than.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentNullException">
       ///    When either <paramref name="value" /> or <paramref name="comparison" /> are null.
       /// </exception>
       /// <exception cref="ArgumentException">
       ///    When the <paramref name="value" /> is less than or equal to <paramref name="comparison" />.
       /// </exception>
-      public static void IsGreaterThan<T>(T value, T comparison, string name = null, string message = null)
+      public static T IsGreaterThan<T>(T value, T comparison, string name = null, string message = null)
          where T : IComparable<T>
       {
          if (typeof(T).IsByRef)
@@ -606,6 +665,7 @@ namespace Jcd.Validations
                              onFailure: () => RaiseArgumentException(name,
                                                                      message ??
                                                                      $"Value for {name} ({value}) was expected to be greater than {comparison}"));
+         return value;
       }
 
       /// <summary>
@@ -618,13 +678,14 @@ namespace Jcd.Validations
       /// </param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentNullException">
       ///    When either <paramref name="value" /> or <paramref name="comparison" /> are null.
       /// </exception>
       /// <exception cref="ArgumentException">
       ///    When the <paramref name="value" /> is less than <paramref name="comparison" />.
       /// </exception>
-      public static void IsGreaterThanOrEqual<T>(T value, T comparison, string name = null, string message = null)
+      public static T IsGreaterThanOrEqual<T>(T value, T comparison, string name = null, string message = null)
          where T : IComparable<T>
       {
          if (typeof(T).IsByRef)
@@ -640,6 +701,7 @@ namespace Jcd.Validations
                       onFailure: () => RaiseArgumentException(name,
                                                               message ??
                                                               $"Value for {name} ({value}) was expected to be greater than or equal to {comparison}"));
+         return value;
       }
 
       /// <summary>
@@ -650,13 +712,14 @@ namespace Jcd.Validations
       /// <param name="comparison">What <paramref name="value" /> must be less than.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentNullException">
       ///    When either <paramref name="value" /> or <paramref name="comparison" /> are null.
       /// </exception>
       /// <exception cref="ArgumentException">
       ///    When the <paramref name="value" /> is greater than or equal to <paramref name="comparison" />.
       /// </exception>
-      public static void IsLessThan<T>(T value, T comparison, string name = null, string message = null)
+      public static T IsLessThan<T>(T value, T comparison, string name = null, string message = null)
          where T : IComparable<T>
       {
          if (typeof(T).IsByRef)
@@ -673,6 +736,7 @@ namespace Jcd.Validations
                           onFailure: () => RaiseArgumentException(name,
                                                                   message ??
                                                                   $"Value for {name} ({value}) was expected to be less than {comparison}"));
+         return value;
       }
 
       /// <summary>
@@ -685,13 +749,14 @@ namespace Jcd.Validations
       /// </param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentNullException">
       ///    When either <paramref name="value" /> or <paramref name="comparison" /> are null.
       /// </exception>
       /// <exception cref="ArgumentException">
       ///    When the <paramref name="value" /> is greater than <paramref name="comparison" />.
       /// </exception>
-      public static void IsLessThanOrEqual<T>(T value, T comparison, string name = null, string message = null)
+      public static T IsLessThanOrEqual<T>(T value, T comparison, string name = null, string message = null)
          where T : IComparable<T>
       {
          if (typeof(T).IsByRef)
@@ -707,6 +772,7 @@ namespace Jcd.Validations
                       onFailure: () => RaiseArgumentException(name,
                                                               message ??
                                                               $"Value for {name} ({value}) was expected to be less than or equal to {comparison}"));
+         return value;
       }
 
       /// <summary>
@@ -718,11 +784,12 @@ namespace Jcd.Validations
       /// <param name="max">The maximum value for the range (inclusive)</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentNullException">
       ///    When <paramref name="value" />, <paramref name="min" /> or <paramref name="max" /> are null.
       /// </exception>
       /// <exception cref="ArgumentOutOfRangeException">When the value is within the specified range.</exception>
-      public static void NotInRange<T>(T value, T min, T max, string name = null, string message = null)
+      public static T NotInRange<T>(T value, T min, T max, string name = null, string message = null)
          where T : IComparable<T>
       {
          if (typeof(T).IsByRef)
@@ -747,6 +814,7 @@ namespace Jcd.Validations
                                                                             name,
                                                                             message ??
                                                                             $"Argument {name} ({value}) had an invalid value. Expected value outside of the range of {min} to {max}."));
+         return value;
       }
 
       #endregion range and relational operations
@@ -761,10 +829,12 @@ namespace Jcd.Validations
       /// <param name="value">The value to check.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">When the value passes the custom check.</exception>
-      public static void Fails<T>(Check.Signature<T> condition, T value, string name = null, string message = null)
+      public static T Fails<T>(Check.Signature<T> condition, T value, string name = null, string message = null)
       {
          Check.Fails(condition, value, onFailure: () => RaiseArgumentException(name, message));
+         return value;
       }
 
       /// <summary>
@@ -775,13 +845,15 @@ namespace Jcd.Validations
       /// <param name="value">The value to check.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">When the value passes any of the custom checks.</exception>
-      public static void FailsAll<T>(IEnumerable<Check.Signature<T>> conditions,
+      public static T FailsAll<T>(IEnumerable<Check.Signature<T>> conditions,
                                      T value,
                                      string name = null,
                                      string message = null)
       {
          Check.FailsAll(conditions, value, onFailure: () => RaiseArgumentException(name, message));
+         return value;
       }
 
       /// <summary>
@@ -792,13 +864,15 @@ namespace Jcd.Validations
       /// <param name="value">The value to check.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">When the value passes any of the custom checks.</exception>
-      public static void FailsAny<T>(IEnumerable<Check.Signature<T>> conditions,
+      public static T FailsAny<T>(IEnumerable<Check.Signature<T>> conditions,
                                      T value,
                                      string name = null,
                                      string message = null)
       {
          Check.FailsAny(conditions, value, onFailure: () => RaiseArgumentException(name, message));
+         return value;
       }
 
       /// <summary>
@@ -809,10 +883,12 @@ namespace Jcd.Validations
       /// <param name="value">The value to check.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">When the value fails the custom check.</exception>
-      public static void Passes<T>(Check.Signature<T> condition, T value, string name = null, string message = null)
+      public static T Passes<T>(Check.Signature<T> condition, T value, string name = null, string message = null)
       {
          Check.Passes(condition, value, onFailure: () => RaiseArgumentException(name, message));
+         return value;
       }
 
       /// <summary>
@@ -823,13 +899,15 @@ namespace Jcd.Validations
       /// <param name="value">The value to check.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">When the value fails any of the custom checks.</exception>
-      public static void PassesAll<T>(IEnumerable<Check.Signature<T>> conditions,
+      public static T PassesAll<T>(IEnumerable<Check.Signature<T>> conditions,
                                       T value,
                                       string name = null,
                                       string message = null)
       {
          Check.PassesAll(conditions, value, onFailure: () => RaiseArgumentException(name, message));
+         return value;
       }
 
       /// <summary>
@@ -840,13 +918,15 @@ namespace Jcd.Validations
       /// <param name="value">The value to check.</param>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      /// <returns>the value</returns>
       /// <exception cref="ArgumentException">When the value fails any of the custom checks.</exception>
-      public static void PassesAny<T>(IEnumerable<Check.Signature<T>> conditions,
+      public static T PassesAny<T>(IEnumerable<Check.Signature<T>> conditions,
                                       T value,
                                       string name = null,
                                       string message = null)
       {
          Check.PassesAny(conditions, value, onFailure: () => RaiseArgumentException(name, message));
+         return value;
       }
 
       #endregion custom and multi-condition operations

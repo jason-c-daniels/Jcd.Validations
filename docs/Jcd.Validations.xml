@@ -72,6 +72,7 @@
             <param name="value">The value of the argument.</param>
             <param name="name">the argument name.</param>
             <param name="message">the error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">When <paramref name="value" /> is true</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.IsNotNull``1(``0,System.String,System.String)">
@@ -82,6 +83,7 @@
             <param name="value">The value of the argument.</param>
             <param name="name">the argument name.</param>
             <param name="message">the error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentNullException">When <paramref name="value" /> is null</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.IsNull``1(``0,System.String,System.String)">
@@ -92,6 +94,7 @@
             <param name="value">The value of the argument.</param>
             <param name="name">the argument name.</param>
             <param name="message">the error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">When <paramref name="value" /> is not null</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.IsTrue(System.Boolean,System.String,System.String)">
@@ -101,33 +104,38 @@
             <param name="value">The value of the argument.</param>
             <param name="name">the argument name.</param>
             <param name="message">the error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">When <paramref name="value" /> is false.</exception>
         </member>
-        <member name="M:Jcd.Validations.Argument.Contains``1(System.Collections.Generic.IEnumerable{``0},``0,System.String,System.String)">
+        <member name="M:Jcd.Validations.Argument.Contains``2(``1,``0,System.String,System.String)">
             <summary>
                Ensure a value exists within an enumerable.
             </summary>
             <typeparam name="T">The type of the target value.</typeparam>
+            <typeparam name="TL">The type of the enumerable, must be derived from IEnumerable of T</typeparam>
             <param name="list">The enumerable</param>
             <param name="target">The value being sought.</param>
             <param name="name">the argument name.</param>
             <param name="message">the error message.</param>
+            <returns>the container that was checked</returns>
             <exception cref="T:System.ArgumentNullException">When <paramref name="list" /> is null.</exception>
             <exception cref="T:System.ArgumentException">When <paramref name="target" /> can't be found.</exception>
         </member>
-        <member name="M:Jcd.Validations.Argument.DoesNotContain``1(System.Collections.Generic.IEnumerable{``0},``0,System.String,System.String)">
+        <member name="M:Jcd.Validations.Argument.DoesNotContain``2(``1,``0,System.String,System.String)">
             <summary>
                Ensure a value doesn't exist within an enumerable.
             </summary>
             <typeparam name="T">The type of the target value.</typeparam>
+            <typeparam name="TL">The containing enumerable</typeparam>
             <param name="list">The enumerable</param>
             <param name="target">The value being sought.</param>
             <param name="name">the argument name.</param>
             <param name="message">the error message.</param>
+            <returns>the container that was checked</returns>
             <exception cref="T:System.ArgumentNullException">When <paramref name="list" /> is null.</exception>
             <exception cref="T:System.ArgumentException">When <paramref name="target" /> was found.</exception>
         </member>
-        <member name="M:Jcd.Validations.Argument.HasItems``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+        <member name="M:Jcd.Validations.Argument.HasItems``1(``0,System.String,System.String)">
             <summary>
                Ensure an enumerable has at least one item.
             </summary>
@@ -135,12 +143,13 @@
             <param name="list">The enumerable</param>
             <param name="name">the argument name.</param>
             <param name="message">the error message.</param>
+            <returns>the container</returns>
             <exception cref="T:System.ArgumentNullException">When <paramref name="list" /> is null.</exception>
             <exception cref="T:System.ArgumentException">
                When <paramref name="list" /> no items were found.
             </exception>
         </member>
-        <member name="M:Jcd.Validations.Argument.IsEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+        <member name="M:Jcd.Validations.Argument.IsEmpty``1(``0,System.String,System.String)">
             <summary>
                Ensure an enumerable has zero items.
             </summary>
@@ -148,6 +157,7 @@
             <param name="list">The enumerable to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the container</returns>
             <exception cref="T:System.ArgumentNullException">When <paramref name="list" /> is null.</exception>
             <exception cref="T:System.ArgumentException">
                When <paramref name="list" /> at least one item was found.
@@ -160,6 +170,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">If the value is <see cref="F:System.String.Empty" />.</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.IsEmpty(System.String,System.String,System.String)">
@@ -169,6 +180,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentNullException">If the value is null.</exception>
             <exception cref="T:System.ArgumentException">If the value is not <see cref="F:System.String.Empty" />.</exception>
         </member>
@@ -179,6 +191,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">If the value is <see cref="F:System.String.Empty" />.</exception>
             <exception cref="T:System.ArgumentNullException">If the value is null.</exception>
         </member>
@@ -189,9 +202,10 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">If the value is null
-               or <see cref="F:System.String.Empty">String.Empty</see>
-               .</exception>
+               or <see cref="F:System.String.Empty">String.Empty</see>.
+            </exception>
             <exception cref="T:System.ArgumentNullException">If the value is null.</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.IsNotNullWhitespaceOrEmpty(System.String,System.String,System.String)">
@@ -201,6 +215,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">
                If the value is null
                , only whitespace, or <see cref="F:System.String.Empty">String.Empty</see>
@@ -216,6 +231,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">
                If the value is only whitespace and a string length of at least 1.
             </exception>
@@ -227,6 +243,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">If the value is only whitespace or <see cref="F:System.String.Empty" />.</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.IsNullOrEmpty(System.String,System.String,System.String)">
@@ -236,6 +253,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">
                If the value is <see cref="F:System.String.Empty" /> or null.
             </exception>
@@ -248,6 +266,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">
                If the value is not null, or whitespace of at least one character.
             </exception>
@@ -259,6 +278,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">
                If the value is not null, <see cref="F:System.String.Empty" /> ,or whitespace of at least one character.
             </exception>
@@ -270,6 +290,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">
                If the value is not whitespace of at least one character.
             </exception>
@@ -282,6 +303,7 @@
             <param name="value">The value to test.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">
                If the value is null, or non-whitespace of 1 or more characters.
             </exception>
@@ -295,6 +317,7 @@
             <param name="target">the substring to search for</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the searchString</returns>
         </member>
         <member name="M:Jcd.Validations.Argument.AreEqual``1(``0,``0,System.String,System.String)">
             <summary>
@@ -305,9 +328,10 @@
             <param name="comparison">The expected value.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">When the values are not equivalent.</exception>
         </member>
-        <member name="M:Jcd.Validations.Argument.AreSameObject(System.Object,System.Object,System.String,System.String)">
+        <member name="M:Jcd.Validations.Argument.AreSameObject``1(``0,``0,System.String,System.String)">
             <summary>
                Ensure two objects refer to the same instance, or both are null.
             </summary>
@@ -315,6 +339,7 @@
             <param name="comparison">The expected value.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">
                When the objects are not the same, or only one is null.
             </exception>
@@ -329,6 +354,7 @@
             <param name="max">The maximum value for the range (inclusive)</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentNullException">
                When <paramref name="value" />, <paramref name="min" /> or <paramref name="max" /> are null.
             </exception>
@@ -343,6 +369,7 @@
             <param name="comparison">What <paramref name="value" /> must be greater than.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentNullException">
                When either <paramref name="value" /> or <paramref name="comparison" /> are null.
             </exception>
@@ -361,6 +388,7 @@
             </param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentNullException">
                When either <paramref name="value" /> or <paramref name="comparison" /> are null.
             </exception>
@@ -377,6 +405,7 @@
             <param name="comparison">What <paramref name="value" /> must be less than.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentNullException">
                When either <paramref name="value" /> or <paramref name="comparison" /> are null.
             </exception>
@@ -395,6 +424,7 @@
             </param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentNullException">
                When either <paramref name="value" /> or <paramref name="comparison" /> are null.
             </exception>
@@ -412,6 +442,7 @@
             <param name="max">The maximum value for the range (inclusive)</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentNullException">
                When <paramref name="value" />, <paramref name="min" /> or <paramref name="max" /> are null.
             </exception>
@@ -426,6 +457,7 @@
             <param name="value">The value to check.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">When the value passes the custom check.</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.FailsAll``1(System.Collections.Generic.IEnumerable{Jcd.Validations.Check.Signature{``0}},``0,System.String,System.String)">
@@ -437,6 +469,7 @@
             <param name="value">The value to check.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">When the value passes any of the custom checks.</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.FailsAny``1(System.Collections.Generic.IEnumerable{Jcd.Validations.Check.Signature{``0}},``0,System.String,System.String)">
@@ -448,6 +481,7 @@
             <param name="value">The value to check.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">When the value passes any of the custom checks.</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.Passes``1(Jcd.Validations.Check.Signature{``0},``0,System.String,System.String)">
@@ -459,6 +493,7 @@
             <param name="value">The value to check.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">When the value fails the custom check.</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.PassesAll``1(System.Collections.Generic.IEnumerable{Jcd.Validations.Check.Signature{``0}},``0,System.String,System.String)">
@@ -470,6 +505,7 @@
             <param name="value">The value to check.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">When the value fails any of the custom checks.</exception>
         </member>
         <member name="M:Jcd.Validations.Argument.PassesAny``1(System.Collections.Generic.IEnumerable{Jcd.Validations.Check.Signature{``0}},``0,System.String,System.String)">
@@ -481,6 +517,7 @@
             <param name="value">The value to check.</param>
             <param name="name">The argument name.</param>
             <param name="message">The error message.</param>
+            <returns>the value</returns>
             <exception cref="T:System.ArgumentException">When the value fails any of the custom checks.</exception>
         </member>
         <member name="T:Jcd.Validations.Check">
@@ -580,7 +617,7 @@
             <param name="onFailure">The action to take, if any, when the item is not found.</param>
             <returns>True if the item is not found, false otherwise.</returns>
         </member>
-        <member name="M:Jcd.Validations.Check.HasItems``1(System.Collections.Generic.IEnumerable{``0},System.Action,System.Action)">
+        <member name="M:Jcd.Validations.Check.HasItems``1(``0,System.Action,System.Action)">
             <summary>
             Checks if a collection of type <typeparamref name="T"/> has entries.
             </summary>
@@ -590,7 +627,7 @@
             <param name="onFailure">The action to take, if any, when the collection is empty.</param>
             <returns>False if list is empty, true otherwise</returns>
         </member>
-        <member name="M:Jcd.Validations.Check.IsEmpty``1(System.Collections.Generic.IEnumerable{``0},System.Action,System.Action)">
+        <member name="M:Jcd.Validations.Check.IsEmpty``1(``0,System.Action,System.Action)">
             <summary>
             Checks if a collection of type <typeparamref name="T"/> lacks entries.
             </summary>

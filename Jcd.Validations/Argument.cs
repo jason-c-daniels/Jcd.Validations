@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+// ReSharper disable UnusedType.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedMethodReturnValue.Global
 
 namespace Jcd.Validations
 {
@@ -30,6 +33,7 @@ namespace Jcd.Validations
       /// <summary>
       ///    The default name for any parameter whose name was not provided at the point of invocation.
       /// </summary>
+      // ReSharper disable once MemberCanBePrivate.Global
       public const string UnspecifiedParamName = "[unspecified]";
 
       /// <summary>
@@ -37,6 +41,7 @@ namespace Jcd.Validations
       /// </summary>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      // ReSharper disable once MemberCanBePrivate.Global
       public static void RaiseArgumentException(string name = null, string message = null)
       {
          if (Check.IsNull(name) ||
@@ -51,6 +56,7 @@ namespace Jcd.Validations
       /// </summary>
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
+      // ReSharper disable once MemberCanBePrivate.Global
       public static void RaiseArgumentNullException(string name = null, string message = null)
       {
          if (Check.IsNull(name) ||
@@ -71,6 +77,7 @@ namespace Jcd.Validations
       /// <typeparam name="T">
       ///    The data type for <paramref name="value" />, <paramref name="min" /> and <paramref name="max" />
       /// </typeparam>
+      // ReSharper disable once MemberCanBePrivate.Global
       public static void RaiseArgumentOutOfRangeException<T>(T value,
                                                              T min,
                                                              T max,
@@ -95,6 +102,7 @@ namespace Jcd.Validations
       /// <param name="name">The argument name.</param>
       /// <param name="message">The error message.</param>
       /// <typeparam name="T">The data type for <paramref name="expected" /> and <paramref name="actual" /></typeparam>
+      // ReSharper disable once MemberCanBePrivate.Global
       public static void RaiseExpectationViolation<T>(T expected, T actual, string name = null, string message = null)
       {
          RaiseArgumentException(name, message ?? $"Expected {name} to be {expected}, but it was {actual}.");
@@ -127,6 +135,7 @@ namespace Jcd.Validations
       /// <param name="message">the error message.</param>
       /// <returns>the value</returns>
       /// <exception cref="ArgumentNullException">When <paramref name="value" /> is null</exception>
+      // ReSharper disable once MemberCanBePrivate.Global
       public static T IsNotNull<T>(T value, string name = null, string message = null)
          where T : class
       {

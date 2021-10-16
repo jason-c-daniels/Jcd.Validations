@@ -15,7 +15,7 @@ namespace Jcd.Validations
    ///    Use these methods to help ensure arguments meet various pre-conditions, and to generate
    ///    consistent and standard exceptions on failure. The names of these methods are to be
    ///    interpreted literally. For example this code will fail:
-   ///    <code>
+   /// <code>
    /// Argument.IsWhitespace(string.Empty);
    /// </code>
    ///    This is because an empty string has no characters, which means none of the characters are whitespace.
